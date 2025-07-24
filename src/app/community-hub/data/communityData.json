@@ -1,0 +1,146 @@
+{
+  "art-performance": {
+    "title": "Art Performance",
+    "icon": "/community-hub/art-performance-icon.svg",
+    "description": "Traditional performing arts of Indonesia",
+    "posts": [
+      {
+        "id": 1,
+        "user": {
+          "name": "penari",
+          "avatar": "/default-avatar.svg",
+          "location": "Bali",
+          "joinDate": "2024"
+        },
+        "content": "A mesmerizing Balinese dance performance at the temple. Graceful movements and gamelan music created a magical experience.",
+        "image": "/not-found-picture-post.svg",
+        "likes": 45,
+        "timeAgo": "4h"
+      },
+      {
+        "id": 2,
+        "user": {
+          "name": "dalang",
+          "avatar": "/default-avatar.svg",
+          "location": "Solo",
+          "joinDate": "2023"
+        },
+        "content": "Shadow puppet performance of the Ramayana epic lasting all night. A timeless tradition.",
+        "image": "/not-found-picture-post.svg",
+        "likes": 28,
+        "timeAgo": "8h"
+      }
+    ],
+    "members": [
+      {
+        "name": "budayawan",
+        "avatar": "/default-avatar.svg",
+        "location": "Jakarta",
+        "joinDate": "2024"
+      },
+      {
+        "name": "seniman",
+        "avatar": "/default-avatar.svg",
+        "location": "Yogyakarta",
+        "joinDate": "2024"
+      }
+    ]
+  },
+  "visual-arts-crafts": {
+    "title": "Visual Arts & Crafts",
+    "icon": "/community-hub/visual-arts-and-crafts-icon.svg",
+    "description": "Crafts and visual arts from across the archipelago",
+    "posts": [
+      {
+        "id": 3,
+        "user": {
+          "name": "wayang",
+          "avatar": "/default-avatar.svg",
+          "location": "West Java",
+          "joinDate": "2025"
+        },
+        "content": "Traditional batik craft featuring the parang motif. Takes days to complete.",
+        "image": "/not-found-picture-post.svg",
+        "likes": 18,
+        "timeAgo": "4h"
+      },
+      {
+        "id": 4,
+        "user": {
+          "name": "seniman",
+          "avatar": "/default-avatar.svg",
+          "location": "Yogyakarta",
+          "joinDate": "2024"
+        },
+        "content": "Intricate Jepara wood carvings made with exceptional detail and precision.",
+        "image": "/not-found-picture-post.svg",
+        "likes": 32,
+        "timeAgo": "6h"
+      }
+    ],
+    "members": [
+      {
+        "name": "wayang",
+        "avatar": "/default-avatar.svg",
+        "location": "Samarinda",
+        "joinDate": "2025"
+      }
+    ]
+  },
+  "customs-ceremonial": {
+    "title": "Customs & Ceremonial",
+    "icon": "/community-hub/customs-and-ceremonial-icon.svg",
+    "description": "Cultural customs and traditional ceremonies",
+    "posts": [],
+    "members": []
+  },
+  "regional-literature": {
+    "title": "Regional Literature",
+    "icon": "/community-hub/regional-literature-icon.svg",
+    "description": "Folk tales and literature from local regions",
+    "posts": [],
+    "members": []
+  },
+  "destination": {
+    "title": "Destination",
+    "icon": "/community-hub/destination-icon.svg",
+    "description": "Cultural tourism destinations across Indonesia",
+    "posts": [],
+    "members": []
+  },
+  "traditional-clothing": {
+    "title": "Traditional Clothing",
+    "icon": "/community-hub/traditional-clothing-icon.svg",
+    "description": "Traditional clothing from various regions",
+    "posts": [],
+    "members": []
+  },
+  "traditional-architecture": {
+    "title": "Traditional Architecture",
+    "icon": "/community-hub/traditional-architecture-icon.svg",
+    "description": "Indonesia’s indigenous architectural styles",
+    "posts": [],
+    "members": []
+  },
+  "traditional-music": {
+    "title": "Traditional Music",
+    "icon": "/community-hub/traditional-music-icon.svg",
+    "description": "Instruments and music from Indonesian traditions",
+    "posts": [],
+    "members": []
+  },
+  "traditional-cuisine": {
+    "title": "Traditional Cuisine",
+    "icon": "/community-hub/traditional-cuisine-icon.svg",
+    "description": "Authentic dishes and local flavors of Indonesia",
+    "posts": [],
+    "members": []
+  },
+  "explore-nusa": {
+    "title": "Explore Nusa",
+    "icon": "/community-hub/explore-nusa-icon.svg",
+    "description": "Dive into the cultural diversity of the archipelago",
+    "posts": [],
+    "members": []
+  }
+}
