@@ -11,17 +11,19 @@ export default function NusaDiscoveryLayout({
   const [sidebarOpen, setSidebarOpen] = useState(true)
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen">
       {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="hidden md:block fixed inset-y-0 left-0 w-64 z-30">
+        <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      </div>
+
+      {/* Mobile Header + Main Content */}
+      <div className={`flex flex-col min-h-screen transition-all duration-300 ${sidebarOpen ? 'md:pl-64' : 'md:pl-16'}`}>
         {/* Mobile Header */}
         <MobileHeader onToggleSidebar={() => setSidebarOpen(true)} />
-        
-        {/* Main Content Area */}
-        <main className="flex-1 p-4 md:p-6 bg-gray-50/50">
+
+        {/* Scrollable Main Content */}
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50/50">
           {children}
         </main>
       </div>
