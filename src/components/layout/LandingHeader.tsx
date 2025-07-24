@@ -22,6 +22,7 @@ export function LandingHeader() {
 
   const navigation = [
     { name: tSync('nav.discovery', 'Discovery'), href: '#discovery' },
+    { name: tSync('nav.events', 'Events'), href: '/events' },
     { name: tSync('nav.features', 'Features'), href: '#features' },
     { name: tSync('nav.faq', 'FAQ'), href: '#faq' },
     { name: tSync('nav.contact', 'Contact'), href: '#contact' }
