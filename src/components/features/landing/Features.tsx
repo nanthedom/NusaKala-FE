@@ -174,7 +174,7 @@ export function Features() {
             </div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-nusa-dark-brown mb-2">34</div>
+            <div className="text-3xl md:text-4xl font-bold text-nusa-dark-brown mb-2">38</div>
             <div className="text-sm text-nusa-brown font-medium">
               {tSync('features.stats.provinces', 'Provinces')}
             </div>

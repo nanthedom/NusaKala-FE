@@ -1,3 +1,5 @@
+'use client'
+
 import { LandingHeader } from '@/components/layout/LandingHeader'
 import { Hero } from '@/components/features/landing/Hero'
 import { InteractiveMap } from '@/components/features/landing/InteractiveMap'
@@ -8,26 +10,28 @@ import { Footer } from '@/components/features/landing/Footer'
 export default function LandingPage() {
   return (
     <div className="min-h-screen relative overflow-x-hidden">
+      {/* Main background gradient */}
       <div className="fixed inset-0 -z-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-nusa-cream via-white to-nusa-beige"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-nusa-dark-brown-darker/20 via-nusa-brown/5 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-orange-50 via-white to-yellow-50"></div>
       </div>
 
       <LandingHeader />
       
       <main className="relative">
+        {/* Hero Section */}
         <section className="relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-nusa-cream/95 via-nusa-beige/85 to-nusa-cream/95 -z-10"></div>
           <Hero />
         </section>
 
-        <div className="relative h-24 overflow-hidden -mt-1">
+        {/* Smooth transition from Hero to Map */}
+        <div className="relative h-32 overflow-hidden -mt-1">
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <defs>
               <linearGradient id="heroToMap" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#f5f1e8" stopOpacity="0.95" />
-                <stop offset="50%" stopColor="#ffffff" stopOpacity="0.97" />
-                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.98" />
+                <stop offset="0%" stopColor="rgba(0,0,0,0.3)" stopOpacity="0.8" />
+                <stop offset="30%" stopColor="rgba(251,146,60,0.2)" stopOpacity="0.6" />
+                <stop offset="70%" stopColor="rgba(254,243,199,0.8)" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#fef7ed" stopOpacity="1" />
               </linearGradient>
             </defs>
             <path
@@ -37,17 +41,20 @@ export default function LandingPage() {
           </svg>
         </div>
 
+        {/* Interactive Map Section */}
         <section id="discovery" className="relative -mt-1">
-          <div className="absolute inset-0 bg-gradient-to-b from-white/98 via-nusa-cream/92 to-white/95 -z-10"></div>
           <InteractiveMap />
         </section>
 
-        <div className="relative h-20 overflow-hidden">
+        {/* Transition from Map to Features */}
+        <div className="relative h-24 overflow-hidden">
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <defs>
               <linearGradient id="mapToFeatures" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#f5f1e8" stopOpacity="0.93" />
+                <stop offset="0%" stopColor="#fef7ed" stopOpacity="1" />
+                <stop offset="30%" stopColor="rgba(254,243,199,0.9)" stopOpacity="0.9" />
+                <stop offset="70%" stopColor="rgba(255,251,235,0.95)" stopOpacity="0.95" />
+                <stop offset="100%" stopColor="#f5f1e8" stopOpacity="0.98" />
               </linearGradient>
             </defs>
             <path
@@ -57,19 +64,21 @@ export default function LandingPage() {
           </svg>
         </div>
         
+        {/* Features Section */}
         <section id="features" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-nusa-cream/93 via-white/90 to-nusa-cream-dark/88 -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-orange-25 via-white/90 to-yellow-25 -z-10"></div>
           <Features />
         </section>
 
+        {/* Transition from Features to FAQ */}
         <div className="relative h-28 overflow-hidden">
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <defs>
               <linearGradient id="featuresToFaq" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#f5f1e8" stopOpacity="0.88" />
-                <stop offset="30%" stopColor="#e8dcc0" stopOpacity="0.9" />
-                <stop offset="70%" stopColor="#ddd0b0" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#a0521a" stopOpacity="0.6" />
+                <stop offset="0%" stopColor="#f5f1e8" stopOpacity="0.9" />
+                <stop offset="30%" stopColor="rgba(251,146,60,0.2)" stopOpacity="0.7" />
+                <stop offset="70%" stopColor="rgba(234,88,12,0.3)" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="rgba(154,52,18,0.4)" stopOpacity="0.9" />
               </linearGradient>
             </defs>
             <path
@@ -79,20 +88,22 @@ export default function LandingPage() {
           </svg>
         </div>
         
+        {/* FAQ Section */}
         <section id="faq" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-nusa-brown-light/30 via-nusa-beige-dark/85 to-nusa-brown-light/40 -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-orange-100/40 via-orange-50/80 to-orange-100/60 -z-10"></div>
           <FAQ />
         </section>
 
+        {/* Transition from FAQ to Footer */}
         <div className="relative h-32 overflow-hidden">
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <defs>
               <linearGradient id="faqToFooter" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="rgba(160, 82, 26, 0.4)" />
-                <stop offset="25%" stopColor="rgba(139, 69, 19, 0.6)" />
-                <stop offset="50%" stopColor="rgba(101, 67, 33, 0.8)" />
-                <stop offset="75%" stopColor="rgba(74, 47, 24, 0.9)" />
-                <stop offset="100%" stopColor="#4a2f18" />
+                <stop offset="0%" stopColor="rgba(154,52,18,0.4)" />
+                <stop offset="25%" stopColor="rgba(124,45,18,0.6)" />
+                <stop offset="50%" stopColor="rgba(92,38,16,0.8)" />
+                <stop offset="75%" stopColor="rgba(69,26,12,0.9)" />
+                <stop offset="100%" stopColor="#451a0c" />
               </linearGradient>
             </defs>
             <path
