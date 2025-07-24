@@ -3,11 +3,152 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  /* Info - Better contrast ratios */
+  --color-info-50: #eff6ff;
+  --color-info-100: #dbeafe;
+  --color-info-200: #bfdbfe;
+  --color-info-300: #93c5fd;
+  --color-info-400: #60a5fa;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+  --color-info-700: #1d4ed8;
+  --color-info-800: #1e40af;
+  --color-info-900: #1e3a8a;
+  --color-info-950: #172554;
+
+  /* Warning - Enhanced contrast */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  --color-warning-800: #92400e;
+  --color-warning-900: #78350f;
+  --color-warning-950: #451a03;
+
+  /* Success - Better visibility */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+  --color-success-900: #14532d;
+  --color-success-950: #052e16;
+
+  /* Danger - High contrast */
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-200: #fecaca;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-danger-800: #991b1b;
+  --color-danger-900: #7f1d1d;
+  --color-danger-950: #450a0a;
+
+  /* Neutral - Improved readability */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+
+  /* === NusaKala Brand Colors - Enhanced for better contrast === */
+  --nusa-cream: #faf8f4;
+  --nusa-cream-dark: #f5f1e8;
+  --nusa-beige: #e8dcc0;
+  --nusa-beige-dark: #ddd0b0;
+  --nusa-gold: #d4af37;
+  --nusa-gold-dark: #b8941f;
+  --nusa-gold-light: #e5c659;
+  --nusa-bronze: #cd7f32;
+  --nusa-bronze-dark: #a66428;
+  --nusa-bronze-light: #d4944d;
+  --nusa-brown: #8b4513;
+  --nusa-brown-dark: #6d350f;
+  --nusa-brown-light: #a0521a;
+  --nusa-dark-brown: #654321;
+  --nusa-dark-brown-darker: #4a2f18;
+  --nusa-red: #c41e3a;
+  --nusa-red-dark: #a01828;
+  --nusa-red-light: #d63850;
+  --nusa-green: #228b22;
+  --nusa-green-dark: #1a6b1a;
+  --nusa-green-light: #2da02d;
+  
+  /* Primary brand gradients - Fixed */
+  --gradient-primary: linear-gradient(135deg, var(--nusa-gold) 0%, var(--nusa-bronze) 50%, var(--nusa-brown) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--nusa-bronze) 0%, var(--nusa-gold) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--nusa-cream) 0%, var(--nusa-beige) 100%);
+  --gradient-hero: linear-gradient(135deg, var(--nusa-gold-light) 0%, var(--nusa-gold) 30%, var(--nusa-bronze) 70%, var(--nusa-brown) 100%);
+
+  /* Shadow utilities */
+  --shadow-nusa-gold: 0 4px 14px 0 rgba(212, 175, 55, 0.25);
+  --shadow-nusa-bronze: 0 4px 14px 0 rgba(205, 127, 50, 0.25);
+  --shadow-nusa-brown: 0 4px 14px 0 rgba(139, 69, 19, 0.25);
+
+  /* === Font Family === */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-traditional: 'Noto Serif', serif;
+
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: var(--nusa-gold);
+  --primary-foreground: #ffffff;
+  --secondary: var(--nusa-beige);
+  --secondary-foreground: var(--nusa-dark-brown);
+  --muted: var(--nusa-cream);
+  --muted-foreground: var(--nusa-brown);
+  --accent: var(--nusa-bronze);
+  --accent-foreground: #ffffff;
+  --destructive: var(--nusa-red);
+  --destructive-foreground: #ffffff;
+  --border: var(--nusa-beige);
+  --input: var(--nusa-cream);
+  --ring: var(--nusa-gold);
+  --chart-1: var(--nusa-gold);
+  --chart-2: var(--nusa-bronze);
+  --chart-3: var(--nusa-brown);
+  --chart-4: var(--nusa-green);
+  --chart-5: var(--nusa-red);
+  --sidebar: var(--nusa-cream);
+  --sidebar-foreground: var(--nusa-dark-brown);
+  --sidebar-primary: var(--nusa-gold);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--nusa-beige);
+  --sidebar-accent-foreground: var(--nusa-dark-brown);
+  --sidebar-border: var(--nusa-beige-dark);
+  --sidebar-ring: var(--nusa-gold);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-manrope: var(--font-manrope);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -43,80 +184,390 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+/* Status color backgrounds */
+.bg-info-50 { background-color: var(--color-info-50); }
+.bg-info-100 { background-color: var(--color-info-100); }
+.bg-info-200 { background-color: var(--color-info-200); }
+.bg-info-300 { background-color: var(--color-info-300); }
+.bg-info-400 { background-color: var(--color-info-400); }
+.bg-info-500 { background-color: var(--color-info-500); }
+.bg-info-600 { background-color: var(--color-info-600); }
+.bg-info-700 { background-color: var(--color-info-700); }
+.bg-info-800 { background-color: var(--color-info-800); }
+.bg-info-900 { background-color: var(--color-info-900); }
+.bg-info-950 { background-color: var(--color-info-950); }
+
+.bg-warning-50 { background-color: var(--color-warning-50); }
+.bg-warning-100 { background-color: var(--color-warning-100); }
+.bg-warning-200 { background-color: var(--color-warning-200); }
+.bg-warning-300 { background-color: var(--color-warning-300); }
+.bg-warning-400 { background-color: var(--color-warning-400); }
+.bg-warning-500 { background-color: var(--color-warning-500); }
+.bg-warning-600 { background-color: var(--color-warning-600); }
+.bg-warning-700 { background-color: var(--color-warning-700); }
+.bg-warning-800 { background-color: var(--color-warning-800); }
+.bg-warning-900 { background-color: var(--color-warning-900); }
+.bg-warning-950 { background-color: var(--color-warning-950); }
+
+.bg-success-50 { background-color: var(--color-success-50); }
+.bg-success-100 { background-color: var(--color-success-100); }
+.bg-success-200 { background-color: var(--color-success-200); }
+.bg-success-300 { background-color: var(--color-success-300); }
+.bg-success-400 { background-color: var(--color-success-400); }
+.bg-success-500 { background-color: var(--color-success-500); }
+.bg-success-600 { background-color: var(--color-success-600); }
+.bg-success-700 { background-color: var(--color-success-700); }
+.bg-success-800 { background-color: var(--color-success-800); }
+.bg-success-900 { background-color: var(--color-success-900); }
+.bg-success-950 { background-color: var(--color-success-950); }
+
+.bg-danger-50 { background-color: var(--color-danger-50); }
+.bg-danger-100 { background-color: var(--color-danger-100); }
+.bg-danger-200 { background-color: var(--color-danger-200); }
+.bg-danger-300 { background-color: var(--color-danger-300); }
+.bg-danger-400 { background-color: var(--color-danger-400); }
+.bg-danger-500 { background-color: var(--color-danger-500); }
+.bg-danger-600 { background-color: var(--color-danger-600); }
+.bg-danger-700 { background-color: var(--color-danger-700); }
+.bg-danger-800 { background-color: var(--color-danger-800); }
+.bg-danger-900 { background-color: var(--color-danger-900); }
+.bg-danger-950 { background-color: var(--color-danger-950); }
+
+.bg-neutral-50 { background-color: var(--color-neutral-50); }
+.bg-neutral-100 { background-color: var(--color-neutral-100); }
+.bg-neutral-200 { background-color: var(--color-neutral-200); }
+.bg-neutral-300 { background-color: var(--color-neutral-300); }
+.bg-neutral-400 { background-color: var(--color-neutral-400); }
+.bg-neutral-500 { background-color: var(--color-neutral-500); }
+.bg-neutral-600 { background-color: var(--color-neutral-600); }
+.bg-neutral-700 { background-color: var(--color-neutral-700); }
+.bg-neutral-800 { background-color: var(--color-neutral-800); }
+.bg-neutral-900 { background-color: var(--color-neutral-900); }
+.bg-neutral-950 { background-color: var(--color-neutral-950); }
+
+/* NusaKala Brand Colors - Background utilities with variants */
+.bg-nusa-cream { background-color: var(--nusa-cream); }
+.bg-nusa-cream-dark { background-color: var(--nusa-cream-dark); }
+.bg-nusa-beige { background-color: var(--nusa-beige); }
+.bg-nusa-beige-dark { background-color: var(--nusa-beige-dark); }
+.bg-nusa-gold { background-color: var(--nusa-gold); }
+.bg-nusa-gold-dark { background-color: var(--nusa-gold-dark); }
+.bg-nusa-gold-light { background-color: var(--nusa-gold-light); }
+.bg-nusa-bronze { background-color: var(--nusa-bronze); }
+.bg-nusa-bronze-dark { background-color: var(--nusa-bronze-dark); }
+.bg-nusa-bronze-light { background-color: var(--nusa-bronze-light); }
+.bg-nusa-brown { background-color: var(--nusa-brown); }
+.bg-nusa-brown-dark { background-color: var(--nusa-brown-dark); }
+.bg-nusa-brown-light { background-color: var(--nusa-brown-light); }
+.bg-nusa-dark-brown { background-color: var(--nusa-dark-brown); }
+.bg-nusa-dark-brown-darker { background-color: var(--nusa-dark-brown-darker); }
+.bg-nusa-red { background-color: var(--nusa-red); }
+.bg-nusa-red-dark { background-color: var(--nusa-red-dark); }
+.bg-nusa-red-light { background-color: var(--nusa-red-light); }
+.bg-nusa-green { background-color: var(--nusa-green); }
+.bg-nusa-green-dark { background-color: var(--nusa-green-dark); }
+.bg-nusa-green-light { background-color: var(--nusa-green-light); }
+
+/* Fixed gradient utilities */
+.bg-gradient-primary { background: var(--gradient-primary); }
+.bg-gradient-secondary { background: var(--gradient-secondary); }
+.bg-gradient-accent { background: var(--gradient-accent); }
+.bg-gradient-hero { background: var(--gradient-hero); }
+
+/* Status text colors */
+.text-info-50 { color: var(--color-info-50); }
+.text-info-100 { color: var(--color-info-100); }
+.text-info-200 { color: var(--color-info-200); }
+.text-info-300 { color: var(--color-info-300); }
+.text-info-400 { color: var(--color-info-400); }
+.text-info-500 { color: var(--color-info-500); }
+.text-info-600 { color: var(--color-info-600); }
+.text-info-700 { color: var(--color-info-700); }
+.text-info-800 { color: var(--color-info-800); }
+.text-info-900 { color: var(--color-info-900); }
+.text-info-950 { color: var(--color-info-950); }
+
+.text-warning-50 { color: var(--color-warning-50); }
+.text-warning-100 { color: var(--color-warning-100); }
+.text-warning-200 { color: var(--color-warning-200); }
+.text-warning-300 { color: var(--color-warning-300); }
+.text-warning-400 { color: var(--color-warning-400); }
+.text-warning-500 { color: var(--color-warning-500); }
+.text-warning-600 { color: var(--color-warning-600); }
+.text-warning-700 { color: var(--color-warning-700); }
+.text-warning-800 { color: var(--color-warning-800); }
+.text-warning-900 { color: var(--color-warning-900); }
+.text-warning-950 { color: var(--color-warning-950); }
+
+.text-success-50 { color: var(--color-success-50); }
+.text-success-100 { color: var(--color-success-100); }
+.text-success-200 { color: var(--color-success-200); }
+.text-success-300 { color: var(--color-success-300); }
+.text-success-400 { color: var(--color-success-400); }
+.text-success-500 { color: var(--color-success-500); }
+.text-success-600 { color: var(--color-success-600); }
+.text-success-700 { color: var(--color-success-700); }
+.text-success-800 { color: var(--color-success-800); }
+.text-success-900 { color: var(--color-success-900); }
+.text-success-950 { color: var(--color-success-950); }
+
+.text-danger-50 { color: var(--color-danger-50); }
+.text-danger-100 { color: var(--color-danger-100); }
+.text-danger-200 { color: var(--color-danger-200); }
+.text-danger-300 { color: var(--color-danger-300); }
+.text-danger-400 { color: var(--color-danger-400); }
+.text-danger-500 { color: var(--color-danger-500); }
+.text-danger-600 { color: var(--color-danger-600); }
+.text-danger-700 { color: var(--color-danger-700); }
+.text-danger-800 { color: var(--color-danger-800); }
+.text-danger-900 { color: var(--color-danger-900); }
+.text-danger-950 { color: var(--color-danger-950); }
+
+/* NusaKala Brand Colors - Text utilities with variants */
+.text-nusa-cream { color: var(--nusa-cream); }
+.text-nusa-cream-dark { color: var(--nusa-cream-dark); }
+.text-nusa-beige { color: var(--nusa-beige); }
+.text-nusa-beige-dark { color: var(--nusa-beige-dark); }
+.text-nusa-gold { color: var(--nusa-gold); }
+.text-nusa-gold-dark { color: var(--nusa-gold-dark); }
+.text-nusa-gold-light { color: var(--nusa-gold-light); }
+.text-nusa-bronze { color: var(--nusa-bronze); }
+.text-nusa-bronze-dark { color: var(--nusa-bronze-dark); }
+.text-nusa-bronze-light { color: var(--nusa-bronze-light); }
+.text-nusa-brown { color: var(--nusa-brown); }
+.text-nusa-brown-dark { color: var(--nusa-brown-dark); }
+.text-nusa-brown-light { color: var(--nusa-brown-light); }
+.text-nusa-dark-brown { color: var(--nusa-dark-brown); }
+.text-nusa-dark-brown-darker { color: var(--nusa-dark-brown-darker); }
+.text-nusa-red { color: var(--nusa-red); }
+.text-nusa-red-dark { color: var(--nusa-red-dark); }
+.text-nusa-red-light { color: var(--nusa-red-light); }
+.text-nusa-green { color: var(--nusa-green); }
+.text-nusa-green-dark { color: var(--nusa-green-dark); }
+.text-nusa-green-light { color: var(--nusa-green-light); }
+
+/* Gradient text utility */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
+.text-gradient-primary {
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-hero {
+  background: var(--gradient-hero);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Shadow utilities */
+.shadow-nusa-gold {
+  box-shadow: var(--shadow-nusa-gold);
+}
+
+.shadow-nusa-bronze {
+  box-shadow: var(--shadow-nusa-bronze);
+}
+
+.shadow-nusa-brown {
+  box-shadow: var(--shadow-nusa-brown);
+}
+
+/* Border utilities */
+.border-nusa-gold { border-color: var(--nusa-gold); }
+.border-nusa-gold-light { border-color: var(--nusa-gold-light); }
+.border-nusa-bronze { border-color: var(--nusa-bronze); }
+.border-nusa-brown { border-color: var(--nusa-brown); }
+.border-nusa-beige { border-color: var(--nusa-beige); }
+
+/* Hover utilities */
+.hover\:bg-nusa-gold:hover { background-color: var(--nusa-gold); }
+.hover\:bg-nusa-gold-dark:hover { background-color: var(--nusa-gold-dark); }
+.hover\:bg-nusa-bronze:hover { background-color: var(--nusa-bronze); }
+.hover\:bg-nusa-bronze-dark:hover { background-color: var(--nusa-bronze-dark); }
+.hover\:text-nusa-gold:hover { color: var(--nusa-gold); }
+.hover\:text-nusa-bronze:hover { color: var(--nusa-bronze); }
+.hover\:border-nusa-gold:hover { border-color: var(--nusa-gold); }
+
+/* Dark mode */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: var(--nusa-dark-brown-darker);
+  --foreground: var(--nusa-cream);
+  --card: var(--nusa-dark-brown);
+  --card-foreground: var(--nusa-cream);
+  --popover: var(--nusa-dark-brown);
+  --popover-foreground: var(--nusa-cream);
+  --primary: var(--nusa-gold-light);
+  --primary-foreground: var(--nusa-dark-brown);
+  --secondary: var(--nusa-brown);
+  --secondary-foreground: var(--nusa-cream);
+  --muted: var(--nusa-brown-dark);
+  --muted-foreground: var(--nusa-beige);
+  --accent: var(--nusa-bronze-light);
+  --accent-foreground: var(--nusa-dark-brown);
+  --destructive: var(--nusa-red-light);
+  --destructive-foreground: var(--nusa-cream);
+  --border: var(--nusa-brown);
+  --input: var(--nusa-brown-dark);
+  --ring: var(--nusa-gold-light);
+  --sidebar: var(--nusa-dark-brown);
+  --sidebar-foreground: var(--nusa-cream);
+  --sidebar-primary: var(--nusa-gold-light);
+  --sidebar-primary-foreground: var(--nusa-dark-brown);
+  --sidebar-accent: var(--nusa-brown);
+  --sidebar-accent-foreground: var(--nusa-cream);
+  --sidebar-border: var(--nusa-brown);
+  --sidebar-ring: var(--nusa-gold-light);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    @apply font-sans;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Improved typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+@layer utilities {
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background-size: 200px 100%;
+  }
+
+  /* Accessibility improvements */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Typography utilities */
+  .text-heading {
+    @apply font-bold tracking-tight;
+  }
+
+  .text-display {
+    @apply font-extrabold tracking-tight;
+  }
+
+  .text-body {
+    @apply font-normal leading-relaxed;
+  }
+
+  /* Focus utilities for better accessibility */
+  .focus-visible\:ring-nusa-gold:focus-visible {
+    --tw-ring-color: var(--nusa-gold);
+  }
+
+  .focus-visible\:ring-nusa-bronze:focus-visible {
+    --tw-ring-color: var(--nusa-bronze);
   }
 }
