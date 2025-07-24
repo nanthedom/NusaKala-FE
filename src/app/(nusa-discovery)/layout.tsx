@@ -3,7 +3,7 @@
 import { Sidebar, MobileHeader } from '@/components/layout/Sidebar'
 import { useState } from 'react'
 
-export default function DashboardLayout({
+export default function NusaDiscoveryLayout({
   children,
 }: {
   children: React.ReactNode

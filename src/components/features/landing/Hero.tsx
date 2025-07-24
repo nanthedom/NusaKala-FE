@@ -63,7 +63,7 @@ export function Hero() {
                 className="bg-gradient-primary hover:bg-gradient-secondary text-white shadow-nusa-gold hover:shadow-nusa-bronze transition-all duration-300 hover:scale-105 group"
                 asChild
               >
-                <Link href="/dashboard">
+                <Link href="/nusa-discovery">
                   {tSync('hero.cta', 'Start Exploring')}
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>

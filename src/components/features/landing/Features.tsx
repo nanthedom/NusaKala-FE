@@ -157,7 +157,7 @@ export function Features() {
               className="bg-white text-nusa-dark-brown hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 font-medium px-8"
               asChild
             >
-              <Link href="/dashboard" className="flex items-center">
+              <Link href="/nusa-discovery" className="flex items-center">
                 {tSync('features.cta.button', 'Get Started')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>

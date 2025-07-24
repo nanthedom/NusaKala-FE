@@ -1,5 +1,5 @@
 // 'use client'
-'use client'
+"use client"
 
 import Link from 'next/link'
 import { useAuthStore } from '@/store/auth.store'
@@ -52,13 +52,11 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   }, [])
 
   const navigationItems = [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'Nusa Discovery', href: '/nusa-discovery', icon: MapPin },
+    { name: 'Nusa Discovery', href: '/nusa-discovery', icon: Home },
     { name: 'Events', href: '/events', icon: Calendar },
     { name: 'Nusa Native', href: '/nusa-native', icon: MessageCircle },
     { name: 'Community Hub', href: '/community-hub', icon: Users },
     { name: 'Nusa Cam', href: '/nusa-cam', icon: Camera },
-    { name: 'Daily Trivia', href: '/trivia', icon: Trophy },
   ]
 
   const closeSidebar = () => {
@@ -89,7 +87,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-nusa-gold/20">
           <Link 
-            href="/dashboard" 
+            href="/nusa-discovery" 
             className={cn(
                 "flex items-center space-x-3 transition-opacity duration-200",
                 !isOpen && !isMobile ? "opacity-0" : "opacity-100"
@@ -163,8 +161,26 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             )
           })}
         </nav>
-        <div className="p-4 border-t border-nusa-gold/20">
-          {/* unchanged */}
+
+        {/* Profile & Logout */}
+        <div className="p-4 border-t border-nusa-gold/20 space-y-4">
+          <Link
+            href="/profile"
+            className="flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium text-nusa-dark-brown hover:bg-nusa-gold/10 hover:text-nusa-gold transition-all duration-200"
+            onClick={closeSidebar}
+          >
+            <User className="h-5 w-5 flex-shrink-0" />
+            {(isOpen || isMobile) && <span className="truncate">Profile</span>}
+          </Link>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={logout}
+            className="w-full justify-start px-3 py-2 text-sm text-nusa-brown hover:text-nusa-gold hover:bg-nusa-gold/10 transition-all duration-200"
+          >
+            <LogOut className="h-5 w-5 mr-3" />
+            {(isOpen || isMobile) && <span>Logout</span>}
+          </Button>
         </div>
       </aside>
     </>
@@ -184,7 +200,7 @@ export function MobileHeader({ onToggleSidebar }: { onToggleSidebar: () => void 
           <Menu className="h-5 w-5" />
         </Button>
 
-        <Link href="/dashboard" className="flex items-center space-x-2">
+        <Link href="/nusa-discovery" className="flex items-center space-x-2">
           <div className="h-6 w-auto flex items-center">
             <Image
               src="/nusakala.svg"

@@ -15,7 +15,7 @@ const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 interface Province {
   id: string
   name: string
-  coordinates: [number, number] // [latitude, longitude]
+  coordinates: [number, number]
   culturalHighlights: string[]
   eventsCount: number
   sitesCount: number
@@ -29,7 +29,7 @@ export function InteractiveMap() {
     {
       id: 'jakarta',
       name: 'DKI Jakarta',
-      coordinates: [-6.2088, 106.8456], // [latitude, longitude]
+      coordinates: [-6.2088, 106.8456],
       culturalHighlights: ['Betawi Culture', 'National Monument'],
       eventsCount: 45,
       sitesCount: 65,
@@ -54,7 +54,6 @@ export function InteractiveMap() {
 
   return (
     <section className="py-20 bg-gradient-accent relative overflow-hidden">
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(212,175,55,0.2),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(205,127,50,0.2),transparent_50%)]"></div>
@@ -79,9 +78,9 @@ export function InteractiveMap() {
                   longitude: 118.0149,
                   zoom: 4.2
                 }}
+                mapboxAccessToken={MAPBOX_TOKEN}
                 style={{ width: '100%', height: 500 }}
                 mapStyle="mapbox://styles/mapbox/light-v11"
-                mapboxAccessToken={MAPBOX_TOKEN}
               >
                 <NavigationControl position="top-left" />
                 {provinces.map((province) => (
@@ -96,11 +95,9 @@ export function InteractiveMap() {
                       onClick={() => setSelectedProvince(province)}
                       title={province.name}
                     >
-                      {/* Marker pin */}
                       <div className="w-6 h-6 bg-gradient-primary rounded-full border-3 border-white shadow-nusa-gold group-hover:shadow-nusa-bronze transition-all duration-300 group-hover:scale-110 animate-pulse">
                         <div className="absolute inset-1 bg-white rounded-full"></div>
                       </div>
-                      {/* Marker pulse effect */}
                       <div className="absolute inset-0 w-6 h-6 bg-nusa-gold/30 rounded-full animate-ping"></div>
                     </div>
                   </Marker>
@@ -109,7 +106,6 @@ export function InteractiveMap() {
             </div>
           </div>
 
-          {/* Province Information Panel */}
           <div className="space-y-6">
             {selectedProvince ? (
               <Card className="border-nusa-gold/30 shadow-xl animate-slide-in-right bg-white/95 backdrop-blur-sm">
@@ -179,8 +175,6 @@ export function InteractiveMap() {
                   <p className="text-nusa-brown leading-relaxed">
                     {tSync('map.selectDescription', 'Click on any province marker in the map to explore its rich cultural heritage and discover local treasures.')}
                   </p>
-                  
-                  {/* Quick stats */}
                   <div className="mt-6 pt-4 border-t border-nusa-gold/20">
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div>

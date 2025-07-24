@@ -14,8 +14,8 @@ import {
   Star
 } from 'lucide-react'
 
-export default function DashboardPage() {
-  const { user } = useAuth(true) // Require authentication
+export default function NusaDiscoveryPage() {
+  const { user } = useAuth(true) 
 
   if (!user) {
     return <div>Loading...</div>
