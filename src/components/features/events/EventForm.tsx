@@ -74,14 +74,12 @@ export function EventForm({
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Initialize form with initial data
   useEffect(() => {
     if (initialData) {
       setFormData(initialData)
     }
   }, [initialData])
 
-  // Real-time validation
   const {
     validationResult,
     isValidating,
@@ -98,8 +96,7 @@ export function EventForm({
 
   const handleInputChange = (field: keyof EventData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    
-    // Clear field error when user starts typing
+
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }))
     }
@@ -143,7 +140,6 @@ export function EventForm({
       newErrors.end_datetime = tSync('form.errors.endDateRequired', 'End date is required')
     }
 
-    // Validate date logic
     if (formData.start_datetime && formData.end_datetime) {
       const startDate = new Date(formData.start_datetime)
       const endDate = new Date(formData.end_datetime)
@@ -169,7 +165,6 @@ export function EventForm({
       return
     }
 
-    // Check if validation is approved
     if (!isApproved) {
       return
     }
@@ -177,8 +172,7 @@ export function EventForm({
     setIsSubmitting(true)
 
     try {
-      // TODO: Replace with actual API endpoint
-      const response = await fetch(`http://localhost:3001/api/events${mode === 'edit' ? `/${eventId}` : ''}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events${mode === 'edit' ? `/${eventId}` : ''}`, {
         method: mode === 'edit' ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -203,7 +197,6 @@ export function EventForm({
   }
 
   const handleApplySuggestion = (suggestion: string) => {
-    // Simple suggestion application - can be enhanced
     if (suggestion.toLowerCase().includes('description')) {
       setFormData(prev => ({
         ...prev,
@@ -219,7 +212,6 @@ export function EventForm({
     formData.start_datetime && 
     formData.end_datetime
 
-  // Button is disabled if form is invalid OR validation is not approved
   const isSubmitDisabled = !isFormValid || isSubmitting || !isApproved
 
   return (

@@ -7,18 +7,19 @@ import {
   Map, 
   Calendar, 
   Camera, 
-  Users, 
   Trophy,
   TrendingUp,
-  MapPin,
   Star
 } from 'lucide-react'
 
 export default function NusaDiscoveryPage() {
-  const { user } = useAuth(true) 
+  const { user } = useAuth() 
 
   if (!user) {
-    return <div>Loading...</div>
+    if (typeof window !== 'undefined') {
+      window.location.replace('/')
+    }
+    return null
   }
 
   return (
@@ -26,7 +27,7 @@ export default function NusaDiscoveryPage() {
       {/* Welcome Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-nusa-darkBrown mb-2">
-          Selamat datang, {user.username}! 👋
+          Selamat datang, {user.email}! 👋
         </h1>
         <p className="text-nusa-brown">
           Mari jelajahi keindahan budaya Indonesia hari ini
@@ -41,7 +42,7 @@ export default function NusaDiscoveryPage() {
               <div>
                 <p className="text-sm font-medium text-nusa-brown">Streak</p>
                 <p className="text-2xl font-bold text-nusa-darkBrown">
-                  {user.profile.streak}
+                  {user.streak}
                 </p>
               </div>
               <div className="w-12 h-12 bg-nusa-gold/20 rounded-lg flex items-center justify-center">
@@ -57,7 +58,7 @@ export default function NusaDiscoveryPage() {
               <div>
                 <p className="text-sm font-medium text-nusa-brown">Poin</p>
                 <p className="text-2xl font-bold text-nusa-darkBrown">
-                  {user.profile.points}
+                  {user.points}
                 </p>
               </div>
               <div className="w-12 h-12 bg-nusa-bronze/20 rounded-lg flex items-center justify-center">
@@ -67,7 +68,7 @@ export default function NusaDiscoveryPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-nusa-gold/20">
+        {/* <Card className="border-nusa-gold/20">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -81,7 +82,7 @@ export default function NusaDiscoveryPage() {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         <Card className="border-nusa-gold/20">
           <CardContent className="p-6">
@@ -89,7 +90,7 @@ export default function NusaDiscoveryPage() {
               <div>
                 <p className="text-sm font-medium text-nusa-brown">Level</p>
                 <p className="text-2xl font-bold text-nusa-darkBrown">
-                  {Math.floor((user.profile.points || 0) / 100) + 1}
+                  {Math.floor((user.points || 0) / 100) + 1}
                 </p>
               </div>
               <div className="w-12 h-12 bg-nusa-red/20 rounded-lg flex items-center justify-center">

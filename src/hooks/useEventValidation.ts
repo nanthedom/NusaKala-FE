@@ -44,7 +44,7 @@ export function useEventValidation({
       setIsValidating(true)
       setError(null)
 
-      const response = await fetch(`http://localhost:3001/api/event-validation/validate`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/event-validation/validate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -39,7 +39,7 @@ export function useEventSubmission({ onSuccess, onError }: UseEventSubmissionPro
 
   const getValidationSummary = useCallback(async (eventData: EventData) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/event-validation/summary`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/event-validation/summary`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export function useEventSubmission({ onSuccess, onError }: UseEventSubmissionPro
   const createEvent = useCallback(async (eventData: EventData) => {
     try {
       // TODO: Replace with actual API endpoint
-      const response = await fetch(`http://localhost:3001/api/events`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export function useEventSubmission({ onSuccess, onError }: UseEventSubmissionPro
   const updateEvent = useCallback(async (eventId: string, eventData: EventData) => {
     try {
       // TODO: Replace with actual API endpoint
-      const response = await fetch(`http://localhost:3001/api/events/${eventId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events/${eventId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
