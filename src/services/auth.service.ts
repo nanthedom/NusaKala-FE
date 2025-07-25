@@ -21,7 +21,7 @@ const refreshClient = axios.create({
 
 // Add request interceptor to include refresh token from localStorage
 refreshClient.interceptors.request.use(
-  (config: any) => {
+  (config) => {
     if (typeof window !== 'undefined') {
       // For refresh token requests, we might need to send the refresh token
       // This depends on your backend implementation
@@ -32,7 +32,7 @@ refreshClient.interceptors.request.use(
     }
     return config
   },
-  (error: any) => {
+  (error) => {
     return Promise.reject(error)
   }
 )
