@@ -1,6 +1,42 @@
 import apiClient from '@/lib/axios'
 import axios from 'axios'
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
+
+// Create a separate axios instance for auth requests (login/register) to avoid response interceptors
+const authClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+// Create a separate axios instance for refresh token requests to avoid infinite loops
+const refreshClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+// Add request interceptor to include refresh token from localStorage
+refreshClient.interceptors.request.use(
+  (config: any) => {
+    if (typeof window !== 'undefined') {
+      // For refresh token requests, we might need to send the refresh token
+      // This depends on your backend implementation
+      const refreshToken = localStorage.getItem('refreshToken')
+      if (refreshToken) {
+        config.headers.Authorization = `Bearer ${refreshToken}`
+      }
+    }
+    return config
+  },
+  (error: any) => {
+    return Promise.reject(error)
+  }
+)
+
 export interface User {
   id: string
   email: string
@@ -15,6 +51,11 @@ export interface User {
 export interface AuthResponse {
   message: string
   user: User
+  session: {
+    accessToken: string
+    refreshToken: string
+    expiresIn: number
+  }
 }
 
 export interface RegisterData {
@@ -36,14 +77,7 @@ export interface ValidationError {
 class AuthService {
   async register(data: RegisterData): Promise<AuthResponse> {
     try {
-      // Debug: Log the request
-      console.log('Sending registration request to:', `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'}/auth/register`)
-      console.log('Registration data:', data)
-      
-      const response = await apiClient.post<AuthResponse>('/auth/register', data)
-      
-      // Debug: Log the response
-      console.log('Registration response:', response.data)
+      const response = await authClient.post<AuthResponse>('/auth/register', data)
       
       return response.data
     } catch (error) {
@@ -64,7 +98,7 @@ class AuthService {
 
   async login(data: LoginData): Promise<AuthResponse> {
     try {
-      const response = await apiClient.post<AuthResponse>('/auth/login', data)
+      const response = await authClient.post<AuthResponse>('/auth/login', data)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -92,7 +126,7 @@ class AuthService {
 
   async refreshToken(): Promise<AuthResponse> {
     try {
-      const response = await apiClient.post<AuthResponse>('/auth/refresh')
+      const response = await refreshClient.post<AuthResponse>('/auth/refresh')
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {

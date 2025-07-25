@@ -3,21 +3,24 @@ import { authService } from '@/services/auth.service'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
 
-// Configure axios to include credentials for cookie-based auth
+// Configure axios for token-based auth
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
-  // Ensure cookies are sent with cross-origin requests
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
 })
 
-// Request interceptor - no need to add Authorization header since cookies are sent automatically
+// Request interceptor - add Authorization header with accessToken
 apiClient.interceptors.request.use(
   (config) => {
+    // Get accessToken from localStorage
+    if (typeof window !== 'undefined') {
+      const accessToken = localStorage.getItem('accessToken')
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`
+      }
+    }
     return config
   },
   (error) => {
@@ -39,13 +42,21 @@ apiClient.interceptors.response.use(
 
       try {
         // Try to refresh the token
-        await authService.refreshToken()
+        const refreshResponse = await authService.refreshToken()
         
-        // Retry the original request
+        // Update tokens in localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('accessToken', refreshResponse.session.accessToken)
+          localStorage.setItem('refreshToken', refreshResponse.session.refreshToken)
+        }
+        
+        // Retry the original request with new token
         return apiClient(originalRequest)
       } catch (refreshError) {
-        // If refresh fails, redirect to login
+        // If refresh fails, clear tokens and redirect to login
         if (typeof window !== 'undefined') {
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('refreshToken')
           window.location.href = '/auth/login'
         }
         return Promise.reject(refreshError)

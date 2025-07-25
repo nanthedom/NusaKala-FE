@@ -4,29 +4,19 @@
 import Link from 'next/link'
 import { useAuthStore } from '@/store/auth.store'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Image from 'next/image'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import {
-  MapPin,
   User,
   LogOut,
-  Settings,
   Menu,
   X,
   ChevronLeft,
   ChevronRight,
   Home,
   Calendar,
-  MessageCircle,
+  Plane,
   Users,
   Camera,
-  Trophy
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
@@ -54,7 +44,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const navigationItems = [
     { name: 'Nusa Discovery', href: '/nusa-discovery', icon: Home },
     { name: 'Events', href: '/events', icon: Calendar },
-    { name: 'Nusa Native', href: '/nusa-native', icon: MessageCircle },
+    { name: 'Nusa Journey', href: '/nusa-journey', icon: Plane },
     { name: 'Community Hub', href: '/community-hub', icon: Users },
     { name: 'Nusa Cam', href: '/nusa-cam', icon: Camera },
   ]

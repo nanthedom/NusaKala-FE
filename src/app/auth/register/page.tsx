@@ -63,18 +63,13 @@ export default function RegisterPage() {
     setIsSubmitting(true)
     
     try {
-      // Create the registration payload
       const registerData = {
         email: email.trim(),
         password: password,
         role: role
       }
       
-      // Debug: Log the payload
-      console.log('Registration payload:', registerData)
-      
       await register(registerData)
-      // Redirect will be handled by useAuth hook
     } catch (error) {
       console.error('Registration error:', error)
       setIsSubmitting(false)

@@ -7,6 +7,7 @@ interface AuthState {
   isAuthenticated: boolean
   isLoading: boolean
   error: string | null
+  accessToken: string | null
   login: (email: string, password: string) => Promise<void>
   register: (data: RegisterData) => Promise<void>
   logout: () => Promise<void>
@@ -21,6 +22,7 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
       error: null,
+      accessToken: null,
       
       login: async (email: string, password: string) => {
         set({ isLoading: true, error: null })
@@ -30,19 +32,15 @@ export const useAuthStore = create<AuthState>()(
             user: response.user, 
             isAuthenticated: true, 
             isLoading: false,
-            error: null
+            error: null,
+            accessToken: response.session.accessToken
           }
           set(newState)
           
-          // Ensure cookie is set with consistent structure
+          // Store both tokens in localStorage
           if (typeof window !== 'undefined') {
-            const cookieData = {
-              state: {
-                user: response.user,
-                isAuthenticated: true
-              }
-            }
-            document.cookie = `auth-storage=${JSON.stringify(cookieData)}; path=/; max-age=86400; SameSite=Lax`
+            localStorage.setItem('accessToken', response.session.accessToken)
+            localStorage.setItem('refreshToken', response.session.refreshToken)
           }
         } catch (error) {
           set({ 
@@ -56,16 +54,14 @@ export const useAuthStore = create<AuthState>()(
       register: async (data: RegisterData) => {
         set({ isLoading: true, error: null })
         try {
-          console.log('Auth store: Registering with data:', data)
           const response = await authService.register(data)
-          console.log('Auth store: Registration successful:', response)
           
-          // Don't automatically log in after registration
           set({ 
             user: null, 
             isAuthenticated: false, 
             isLoading: false,
-            error: null
+            error: null,
+            accessToken: null
           })
         } catch (error) {
           console.error('Auth store: Registration error:', error)
@@ -84,17 +80,19 @@ export const useAuthStore = create<AuthState>()(
         } catch (error) {
           // Continue with logout even if server call fails
         } finally {
-          // Always clear local state and cookies
+          // Always clear local state and localStorage
           set({ 
             user: null, 
             isAuthenticated: false, 
             isLoading: false,
-            error: null
+            error: null,
+            accessToken: null
           })
           
-          // Clear cookie
+          // Clear localStorage
           if (typeof window !== 'undefined') {
-            document.cookie = 'auth-storage=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
           }
         }
       },
@@ -114,27 +112,18 @@ export const useAuthStore = create<AuthState>()(
             error: null
           }
           set(newState)
-          
-          // Update cookie after refresh
-          if (typeof window !== 'undefined') {
-            const cookieData = {
-              state: {
-                user: response.user,
-                isAuthenticated: true
-              }
-            }
-            document.cookie = `auth-storage=${JSON.stringify(cookieData)}; path=/; max-age=86400; SameSite=Lax`
-          }
         } catch (error) {
           set({ 
             user: null, 
             isAuthenticated: false,
-            error: null
+            error: null,
+            accessToken: null
           })
           
-          // Clear cookie on refresh failure
+          // Clear localStorage on refresh failure
           if (typeof window !== 'undefined') {
-            document.cookie = 'auth-storage=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
           }
         }
       },
@@ -147,7 +136,8 @@ export const useAuthStore = create<AuthState>()(
       name: 'auth-storage',
       partialize: (state): Partial<AuthState> => ({ 
         user: state.user, 
-        isAuthenticated: state.isAuthenticated 
+        isAuthenticated: state.isAuthenticated,
+        accessToken: state.accessToken
       })
     }
   )

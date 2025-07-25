@@ -47,12 +47,9 @@ export interface ValidationResult {
 class EventService {
   async createEvent(data: EventData): Promise<{ data: { id: string } }> {
     try {
-      console.log('Creating event with data:', data)
       const response = await apiClient.post<{ data: { id: string } }>('/events', data)
-      console.log('Event created successfully:', response.data)
       return response.data
     } catch (error) {
-      console.error('Create event error:', error)
       if (axios.isAxiosError(error)) {
         if (error.response?.data) {
           throw new Error(error.response.data.error || error.response.data.message || 'Failed to create event')
@@ -64,12 +61,9 @@ class EventService {
 
   async updateEvent(eventId: string, data: EventData): Promise<{ data: { id: string } }> {
     try {
-      console.log('Updating event with data:', data)
       const response = await apiClient.put<{ data: { id: string } }>(`/events/${eventId}`, data)
-      console.log('Event updated successfully:', response.data)
       return response.data
     } catch (error) {
-      console.error('Update event error:', error)
       if (axios.isAxiosError(error)) {
         if (error.response?.data) {
           throw new Error(error.response.data.error || error.response.data.message || 'Failed to update event')

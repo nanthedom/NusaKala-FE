@@ -27,13 +27,12 @@ export function useAuth() {
       }, 1000)
     } catch (error) {
       // Error is already handled in the store
-      console.error('Login error:', error)
+      throw error // Re-throw to let the component handle it
     }
   }
 
   const handleRegister = async (data: { email: string; password: string; role: 'tourist' | 'organizer' | 'creator' }) => {
     try {
-      console.log('useAuth: Registering with data:', data)
       await register(data)
       // Redirect to login after successful registration
       setTimeout(() => {

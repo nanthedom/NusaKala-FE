@@ -28,17 +28,12 @@ export function ProtectedRoute({
         setHasCheckedAuth(true)
         
         if (requireAuth && !isAuthenticated) {
-          const authStorage = localStorage.getItem('auth-storage')
-          if (authStorage) {
-            try {
-              const authData = JSON.parse(authStorage)
-              if (authData.state?.user && authData.state?.isAuthenticated) {
-                await refreshUser()
-                return
-              }
-            } catch (error) {
-              console.error('Error parsing auth storage:', error)
-            }
+          // Check if we have accessToken in localStorage
+          const accessToken = localStorage.getItem('accessToken')
+          if (accessToken) {
+            // Try to refresh user data
+            await refreshUser()
+            return
           }
 
           router.replace(redirectTo)

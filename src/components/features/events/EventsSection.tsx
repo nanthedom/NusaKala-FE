@@ -159,14 +159,12 @@ export function EventsSection() {
   }
 
   const handleCreateSuccess = (eventId: string) => {
-    console.log('Event created successfully:', eventId)
     setShowCreateForm(false)
     // You can add toast notification here
     // Optionally refresh the events list
   }
 
   const handleEditSuccess = (eventId: string) => {
-    console.log('Event updated successfully:', eventId)
     setShowEditForm(false)
     setSelectedEvent(null)
     // You can add toast notification here

@@ -9,27 +9,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
   
-  // Get authentication status from cookies
-  const authStorage = request.cookies.get('auth-storage')
-  let isAuthenticated = false
+  // For localStorage-based auth, we can't access localStorage in middleware
+  // So we'll rely on the client-side auth check and let the pages handle their own protection
+  // This prevents the infinite redirect loop issue
   
-  if (authStorage) {
-    try {
-      const authData = JSON.parse(authStorage.value)
-      
-      // Check multiple possible structures for the cookie
-      const hasUser = authData.state?.user || authData.user
-      const isAuth = authData.state?.isAuthenticated || authData.isAuthenticated
-      
-      if (hasUser && hasUser !== null && isAuth === true) {
-        isAuthenticated = true
-      }
-    } catch (error) {
-      console.error('Error parsing auth storage:', error)
-      isAuthenticated = false
-    }
-  }
-
   // Define protected routes that require authentication
   const protectedRoutes = ['/nusa-discovery']
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
@@ -42,16 +25,8 @@ export function middleware(request: NextRequest) {
   const authRoutes = ['/auth']
   const isAuthRoute = authRoutes.some(route => pathname.startsWith(route))
 
-  // Route protection logic
-  if (isProtectedRoute && !isAuthenticated) {
-    // Redirect unauthenticated users to login
-    return NextResponse.redirect(new URL('/auth/login', request.url))
-  }
-  
-  if (isPublicRoute && isAuthenticated) {
-    // Redirect authenticated users away from landing page
-    return NextResponse.redirect(new URL('/nusa-discovery', request.url))
-  }
+  // For now, allow all routes and let client-side handle authentication
+  // This prevents the infinite redirect loop caused by middleware not finding cookies
   
   // Allow access to auth routes for all users
   if (isAuthRoute) {
