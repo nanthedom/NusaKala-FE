@@ -24,12 +24,12 @@ export function ValidationAlert({
     return (
       <Card className="border-nusa-gold/30 bg-gradient-to-r from-nusa-cream/50 to-nusa-beige/50 shadow-lg animate-in slide-in-from-top-2 duration-300">
         <CardContent className="p-6">
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="relative mb-3 sm:mb-0">
               <div className="animate-spin rounded-full h-8 w-8 border-3 border-nusa-gold/30 border-t-nusa-gold"></div>
               <div className="absolute inset-0 rounded-full h-8 w-8 border-2 border-nusa-gold/20 animate-ping"></div>
             </div>
-            <div>
+            <div className="text-center sm:text-left">
               <h3 className="font-semibold text-nusa-dark-brown">
                 {tSync('validation.validating', 'Validating Content...')}
               </h3>
@@ -54,9 +54,9 @@ export function ValidationAlert({
     return (
       <Card className="border-green-200 bg-gradient-to-r from-green-50 to-emerald-50 shadow-lg animate-in slide-in-from-top-2 duration-300">
         <CardContent className="p-6">
-          <div className="flex items-start justify-between">
-            <div className="flex items-start gap-4">
-              <div className="relative">
+          <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-start gap-4 w-full">
+              <div className="relative flex-shrink-0 self-center sm:self-auto">
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300">
                   <CheckCircle className="h-6 w-6 text-green-600" />
                 </div>
@@ -65,7 +65,7 @@ export function ValidationAlert({
                 </div>
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
                   <h3 className="text-lg font-bold text-green-800">
                     {tSync('validation.approved', 'Content Approved')}
                   </h3>
@@ -83,11 +83,19 @@ export function ValidationAlert({
                 variant="ghost"
                 size="sm"
                 onClick={onDismiss}
-                className="text-green-600 hover:text-green-800 hover:bg-green-100 transition-colors"
+                className="text-green-600 hover:text-green-800 hover:bg-green-100 transition-colors self-end sm:self-start"
               >
                 <X className="h-4 w-4" />
               </Button>
             )}
+          </div>
+          <div className="bg-gradient-to-r from-slate-50 to-gray-100 p-3 sm:p-4 rounded-lg border border-gray-200 mt-4">
+            <div className="flex items-start gap-2 mb-2">
+              <Info className="w-4 h-4 text-gray-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h5 className="font-semibold text-gray-800 text-xs sm:text-sm">AI Model powered by GeminiAI</h5>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -98,12 +106,12 @@ export function ValidationAlert({
     return (
       <Card className="border-yellow-200 bg-gradient-to-r from-yellow-50 to-amber-50 shadow-lg animate-in slide-in-from-top-2 duration-300">
         <CardContent className="p-6">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300">
+          <div className="flex flex-col sm:flex-row items-start gap-4">
+            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300 self-center sm:self-auto">
               <Info className="h-6 w-6 text-yellow-600" />
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
                 <h3 className="text-lg font-bold text-yellow-800">
                   {tSync('validation.pendingReview', 'Content Needs Review')}
                 </h3>
@@ -116,6 +124,14 @@ export function ValidationAlert({
               </p>
             </div>
           </div>
+          <div className="bg-gradient-to-r from-slate-50 to-gray-100 p-3 sm:p-4 rounded-lg border border-gray-200 mt-4">
+            <div className="flex items-start gap-2 mb-2">
+              <Info className="w-4 h-4 text-gray-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h5 className="font-semibold text-gray-800 text-xs sm:text-sm">AI Model powered by GeminiAI</h5>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
     )
@@ -125,13 +141,13 @@ export function ValidationAlert({
     return (
       <Card className="border-red-200 bg-gradient-to-r from-red-50 to-rose-50 shadow-lg animate-in slide-in-from-top-2 duration-300">
         <CardContent className="p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300">
+          <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-4 mb-4">
+            <div className="flex flex-col sm:flex-row items-start gap-4 w-full">
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300 self-center sm:self-auto">
                 <AlertTriangle className="h-6 w-6 text-red-600" />
               </div>
               <div>
-                <div className="flex items-center gap-3 mb-2">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
                   <h3 className="text-lg font-bold text-red-800">
                     {tSync('validation.rejected', 'Content Rejected')}
                   </h3>
@@ -149,7 +165,7 @@ export function ValidationAlert({
                 variant="ghost"
                 size="sm"
                 onClick={onDismiss}
-                className="text-red-600 hover:text-red-800 hover:bg-red-100 transition-colors"
+                className="text-red-600 hover:text-red-800 hover:bg-red-100 transition-colors self-end sm:self-start"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -159,7 +175,7 @@ export function ValidationAlert({
           {/* Warnings Section */}
           {warnings && warnings.length > 0 && (
             <div className="mb-6 p-4 bg-red-100/50 rounded-lg border border-red-200 animate-in slide-in-from-left-2 duration-300 delay-200">
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-3">
                 <AlertCircle className="h-4 w-4 text-red-600" />
                 <h4 className="font-semibold text-red-800">
                   {tSync('validation.warnings', 'Issues Found:')}
@@ -179,7 +195,7 @@ export function ValidationAlert({
           {/* Suggestions Section */}
           {suggestions && suggestions.length > 0 && (
             <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 animate-in slide-in-from-left-2 duration-300 delay-300">
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-3">
                 <Lightbulb className="h-4 w-4 text-blue-600" />
                 <h4 className="font-semibold text-blue-800">
                   {tSync('validation.suggestions', 'Improvement Suggestions:')}
@@ -187,7 +203,7 @@ export function ValidationAlert({
               </div>
               <div className="space-y-3">
                 {suggestions.map((suggestion, index) => (
-                  <div key={index} className="flex items-start gap-3 p-3 bg-white rounded-lg border border-blue-100 animate-in slide-in-from-left-2 duration-300 hover:shadow-md transition-shadow" style={{ animationDelay: `${400 + index * 100}ms` }}>
+                  <div key={index} className="flex flex-col sm:flex-row items-start gap-3 p-3 bg-white rounded-lg border border-blue-100 animate-in slide-in-from-left-2 duration-300 hover:shadow-md transition-shadow" style={{ animationDelay: `${400 + index * 100}ms` }}>
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                     <div className="flex-1">
                       <p className="text-sm text-blue-800 leading-relaxed">{suggestion}</p>
@@ -197,7 +213,7 @@ export function ValidationAlert({
                         variant="outline"
                         size="sm"
                         onClick={() => onApplySuggestion(suggestion)}
-                        className="text-xs h-7 px-3 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 transition-all duration-200 hover:scale-105"
+                        className="text-xs h-7 px-3 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 transition-all duration-200 hover:scale-105 mt-2 sm:mt-0"
                       >
                         {tSync('validation.apply', 'Apply')}
                       </Button>
@@ -207,6 +223,14 @@ export function ValidationAlert({
               </div>
             </div>
           )}
+          <div className="bg-gradient-to-r from-slate-50 to-gray-100 p-3 sm:p-4 rounded-lg border border-gray-200 mt-4">
+            <div className="flex items-start gap-2 mb-2">
+              <Info className="w-4 h-4 text-gray-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h5 className="font-semibold text-gray-800 text-xs sm:text-sm">AI Model powered by GeminiAI</h5>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
     )

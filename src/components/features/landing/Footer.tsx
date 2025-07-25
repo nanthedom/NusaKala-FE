@@ -93,7 +93,7 @@ export function Footer() {
               <div className="flex items-center gap-4 text-sm text-nusa-beige">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-nusa-green-light rounded-full animate-pulse"></div>
-                  <span>{tSync('footer.status', 'All systems operational')}</span>
+                  <span>{tSync('footer.status', 'Credit assets to canva')}</span>
                 </div>
               </div>
             </div>

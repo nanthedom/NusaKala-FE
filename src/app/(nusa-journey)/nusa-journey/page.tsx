@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Calendar, MapPin, Plane, Sparkles, CheckSquare } from "lucide-react"
+import { Calendar, MapPin, Plane, Sparkles, CheckSquare, Info } from "lucide-react"
 import { useTranslation } from "@/hooks/useTranslation"
 import { INDONESIA_DATA } from "./indonesia"
 import ReactMarkdown from "react-markdown"
@@ -530,6 +530,16 @@ Focus on authentic Indonesian cultural experiences, traditional arts, local comm
                         </CardContent>
                     </Card>
                 )}
+
+                {/* AI Model Disclaimer */}
+                <div className="bg-gradient-to-r from-slate-50 to-gray-100 p-3 sm:p-4 rounded-lg border border-gray-200 mt-4">
+                    <div className="flex items-start gap-2 mb-2">
+                        <Info className="w-4 h-4 text-gray-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <h5 className="font-semibold text-gray-800 text-xs sm:text-sm">AI Model powered by GeminiAI</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
