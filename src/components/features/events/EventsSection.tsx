@@ -139,7 +139,7 @@ export function EventsSection() {
           </div>
           <Button 
             onClick={handleCreateEvent}
-            className="bg-nusa-gold hover:bg-nusa-bronze text-white"
+            className="bg-nusa-gold hover:bg-nusa-bronze text-white w-full sm:w-auto"
           >
             <Plus className="h-4 w-4 mr-2" />
             {tSync('events.create', 'Create Event')}
@@ -147,12 +147,14 @@ export function EventsSection() {
         </div>
 
         {/* Filters */}
-        <EventFilter
-          selectedStatus={selectedStatus}
-          selectedType={selectedType}
-          onStatusChange={handleStatusChange}
-          onTypeChange={handleTypeChange}
-        />
+        <div className="w-full">
+          <EventFilter
+            selectedStatus={selectedStatus}
+            selectedType={selectedType}
+            onStatusChange={handleStatusChange}
+            onTypeChange={handleTypeChange}
+          />
+        </div>
 
         {/* Events Grid */}
         {filteredEvents.length === 0 ? (
@@ -162,13 +164,14 @@ export function EventsSection() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredEvents.map((event) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                status={getEventStatus(event.start_datetime, event.end_datetime)}
-              />
+              <div key={event.id} className="flex">
+                <EventCard
+                  event={event}
+                  status={getEventStatus(event.start_datetime, event.end_datetime)}
+                />
+              </div>
             ))}
           </div>
         )}
@@ -176,10 +179,10 @@ export function EventsSection() {
 
       {/* Create Event Modal */}
       {showCreateForm && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-nusa-dark-brown">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-lg sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+              <h2 className="text-lg sm:text-xl font-semibold text-nusa-dark-brown">
                 {tSync('events.create', 'Create New Event')}
               </h2>
               <Button
@@ -191,7 +194,7 @@ export function EventsSection() {
                 <X className="h-5 w-5" />
               </Button>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <EventForm
                 mode="create"
                 onSuccess={handleEventCreated}
@@ -204,10 +207,10 @@ export function EventsSection() {
 
       {/* Edit Event Modal */}
       {showEditForm && selectedEvent && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-nusa-dark-brown">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-lg sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+              <h2 className="text-lg sm:text-xl font-semibold text-nusa-dark-brown">
                 {tSync('events.edit', 'Edit Event')}
               </h2>
               <Button
@@ -219,7 +222,7 @@ export function EventsSection() {
                 <X className="h-5 w-5" />
               </Button>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <EventForm
                 mode="edit"
                 initialData={{

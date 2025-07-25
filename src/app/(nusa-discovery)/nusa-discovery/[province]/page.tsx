@@ -22,10 +22,12 @@ export async function generateMetadata({ params }: ProvinceDetailPageProps) {
 
 export default function ProvinceDetailPage({ params }: ProvinceDetailPageProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-yellow-50">
-      <Suspense fallback={<ProvinceDetailLoading />}>
-        <ProvinceDetailContent province={params.province} />
-      </Suspense>
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-yellow-50 w-full">
+      <div className="w-full max-w-full sm:max-w-7xl mx-auto px-2 sm:px-4">
+        <Suspense fallback={<ProvinceDetailLoading />}>
+          <ProvinceDetailContent province={params.province} />
+        </Suspense>
+      </div>
     </div>
   );
 }
