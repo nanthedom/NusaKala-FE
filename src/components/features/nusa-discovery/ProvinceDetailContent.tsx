@@ -256,7 +256,7 @@ export function ProvinceDetailContent({ province }: ProvinceDetailContentProps) 
                       <div className="space-y-4">
                         <h3 className="text-xl font-semibold text-orange-900 flex items-center gap-2">
                           <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full"></div>
-                          Key Examples
+                          Cultural Objects
                         </h3>
                         <ul className="space-y-2">
                           {section.items.map((item, itemIndex) => (

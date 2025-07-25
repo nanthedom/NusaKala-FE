@@ -7,14 +7,15 @@ import { EventForm } from '@/components/features/events/EventForm'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useAuthStore } from '@/store/auth.store'
 
 // Dummy data based on the database schema
 const dummyEvents = [
   {
     id: '1',
-    name: 'Festival Budaya Nusantara 2024',
+    name: 'Nusantara Culture Festival 2024',
     types: ['Cultural', 'Festival'],
-    description: 'Festival budaya terbesar yang menampilkan keanekaragaman budaya Indonesia dari berbagai daerah.',
+    description: 'The largest cultural festival showcasing the diversity of Indonesian culture from various regions.',
     images: '/community-hub.svg',
     links: ['https://festival-budaya.com'],
     place_name: 'Taman Mini Indonesia Indah',
@@ -28,12 +29,12 @@ const dummyEvents = [
   },
   {
     id: '2',
-    name: 'Workshop Batik Tradisional',
+    name: 'Traditional Batik Workshop',
     types: ['Workshop', 'Craft'],
-    description: 'Belajar teknik membatik tradisional dengan para pengrajin batik berpengalaman.',
+    description: 'Learn traditional batik techniques with experienced batik artisans.',
     images: '/community-hub.svg',
     links: ['https://workshop-batik.com'],
-    place_name: 'Sanggar Batik Jogja',
+    place_name: 'Jogja Batik Studio',
     latitude: -7.7971,
     longitude: 110.3708,
     start_datetime: '2024-11-20T08:00:00Z',
@@ -44,12 +45,12 @@ const dummyEvents = [
   },
   {
     id: '3',
-    name: 'Pameran Seni Rupa Kontemporer',
+    name: 'Contemporary Art Exhibition',
     types: ['Exhibition', 'Art'],
-    description: 'Pameran seni rupa kontemporer yang menampilkan karya-karya seniman Indonesia.',
+    description: 'A contemporary art exhibition featuring works by Indonesian artists.',
     images: '/community-hub.svg',
     links: ['https://pameran-seni.com'],
-    place_name: 'Galeri Nasional Indonesia',
+    place_name: 'National Gallery of Indonesia',
     latitude: -6.1751,
     longitude: 106.8650,
     start_datetime: '2025-10-10T10:00:00Z',
@@ -60,12 +61,12 @@ const dummyEvents = [
   },
   {
     id: '4',
-    name: 'Konser Musik Tradisional',
+    name: 'Traditional Music Concert',
     types: ['Concert', 'Music'],
-    description: 'Konser musik tradisional yang menampilkan alat musik tradisional Indonesia.',
+    description: 'A traditional music concert featuring Indonesian traditional musical instruments.',
     images: '/community-hub.svg',
     links: ['https://konser-tradisional.com'],
-    place_name: 'Auditorium Universitas Indonesia',
+    place_name: 'Auditorium of University of Indonesia',
     latitude: -6.3621,
     longitude: 106.8226,
     start_datetime: '2024-12-01T19:00:00Z',
@@ -76,12 +77,12 @@ const dummyEvents = [
   },
   {
     id: '5',
-    name: 'Seminar Sejarah Nusantara',
+    name: 'Nusantara History Seminar',
     types: ['Seminar', 'Education'],
-    description: 'Seminar yang membahas sejarah dan perkembangan budaya Nusantara dari masa ke masa.',
+    description: 'A seminar discussing the history and development of Nusantara culture from time to time.',
     images: '/community-hub.svg',
     links: ['https://seminar-sejarah.com'],
-    place_name: 'Ruang Seminar Universitas Gadjah Mada',
+    place_name: 'Seminar Room, Gadjah Mada University',
     latitude: -7.7731,
     longitude: 110.3748,
     start_datetime: '2024-11-30T08:30:00Z',
@@ -92,12 +93,12 @@ const dummyEvents = [
   },
   {
     id: '6',
-    name: 'Pertunjukan Wayang Kulit',
+    name: 'Wayang Kulit Performance',
     types: ['Performance', 'Traditional'],
-    description: 'Pertunjukan wayang kulit dengan dalang terkenal yang menampilkan cerita Mahabharata.',
+    description: 'A wayang kulit performance by a famous puppeteer featuring the Mahabharata story.',
     images: '/community-hub.svg',
     links: ['https://wayang-kulit.com'],
-    place_name: 'Pendopo Agung Keraton Yogyakarta',
+    place_name: 'Pendopo Agung, Yogyakarta Palace',
     latitude: -7.8097,
     longitude: 110.3647,
     start_datetime: '2024-10-05T19:00:00Z',
@@ -116,6 +117,8 @@ export function EventsSection() {
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [showEditForm, setShowEditForm] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<any>(null)
+  const { user } = useAuthStore()
+  const isCreator = user?.role === 'creator'
 
   const getEventStatus = (startDate: string, endDate: string) => {
     const now = new Date()
@@ -222,13 +225,15 @@ export function EventsSection() {
 
         {/* Action Buttons */}
         <div className="flex justify-center mb-8">
-          <Button
-            onClick={() => setShowCreateForm(true)}
-            className="bg-nusa-gold hover:bg-nusa-gold-dark"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            {tSync('events.createNew', 'Create New Event')}
-          </Button>
+          {isCreator && (
+            <Button
+              onClick={() => setShowCreateForm(true)}
+              className="bg-nusa-gold hover:bg-nusa-gold-dark"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              {tSync('events.createNew', 'Create New Event')}
+            </Button>
+          )}
         </div>
 
         {/* Filters */}
