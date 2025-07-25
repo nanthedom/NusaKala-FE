@@ -26,44 +26,44 @@ const BATIK_PATTERNS = {
     0: {
         // Parang
         name: "Parang",
-        origin: "Yogyakarta & Solo, Jawa Tengah",
+        origin: "Yogyakarta & Solo, Central Java",
         description:
-            "Motif klasik berbentuk huruf 'S' yang melengkung menyerupai ombak laut atau lereng gunung. Parang merupakan salah satu motif tertua dan paling terkenal dalam dunia batik Indonesia.",
+            "A classic motif shaped like the letter 'S' that curves resembling ocean waves or mountain slopes. Parang is one of the oldest and most famous motifs in Indonesian batik.",
         cultural_significance:
-            "Melambangkan kekuatan, keteguhan, dan semangat pantang menyerah. Dahulu motif ini hanya boleh dikenakan oleh keluarga kerajaan sebagai simbol kekuasaan dan kemuliaan.",
+            "Symbolizes strength, perseverance, and an unyielding spirit. In the past, this motif could only be worn by royal families as a symbol of power and nobility.",
         color: "from-amber-500 to-orange-600",
         icon: "🌊",
     },
     1: {
         // Mega Mendung
         name: "Mega Mendung",
-        origin: "Cirebon, Jawa Barat",
+        origin: "Cirebon, West Java",
         description:
-            "Motif awan bergradasi dengan bentuk spiral yang khas, mencerminkan pengaruh budaya Tionghoa dalam seni batik Nusantara. Warna biru mendominasi dengan gradasi yang halus.",
+            "A gradient cloud motif with distinctive spiral shapes, reflecting Chinese cultural influence in Indonesian batik art. Blue dominates with smooth gradations.",
         cultural_significance:
-            "Melambangkan kesabaran, ketenangan, dan kebijaksanaan. Motif ini mengajarkan untuk tetap tenang dalam menghadapi badai kehidupan, seperti awan yang sabar menanti hujan.",
+            "Symbolizes patience, tranquility, and wisdom. This motif teaches us to remain calm when facing life's storms, like clouds that patiently await rain.",
         color: "from-blue-500 to-indigo-600",
         icon: "☁️",
     },
     2: {
         // Kawung
         name: "Kawung",
-        origin: "Yogyakarta & Solo, Jawa Tengah",
+        origin: "Yogyakarta & Solo, Central Java",
         description:
-            "Motif geometris berbentuk lingkaran atau oval yang tersusun rapi, terinspirasi dari buah kawung (aren) atau kolang-kaling. Pola ini mencerminkan kesederhanaan dan keharmonisan.",
+            "A geometric motif in the form of circles or ovals arranged neatly, inspired by kawung fruit (aren) or kolang-kaling. This pattern reflects simplicity and harmony.",
         cultural_significance:
-            "Melambangkan kesucian hati, pengendalian diri, dan keadilan. Motif ini mengajarkan tentang pentingnya menjaga keseimbangan dalam hidup dan berbuat adil kepada sesama.",
+            "Symbolizes purity of heart, self-control, and justice. This motif teaches about the importance of maintaining balance in life and being fair to others.",
         color: "from-emerald-500 to-teal-600",
         icon: "⭕",
     },
     3: {
         // Truntum
         name: "Truntum",
-        origin: "Yogyakarta, Jawa Tengah",
+        origin: "Yogyakarta, Central Java",
         description:
-            "Motif bunga kecil yang tersebar merata dengan pola yang teratur dan rapi. Truntum berasal dari kata 'taruntum' yang berarti tumbuh, melambangkan cinta yang tumbuh kembali.",
+            "A motif of small flowers scattered evenly with regular and neat patterns. Truntum comes from the word 'taruntum' which means to grow, symbolizing love that grows again.",
         cultural_significance:
-            "Melambangkan cinta kasih yang tulus, kesetiaan, dan harapan. Motif ini sering digunakan dalam upacara pernikahan sebagai doa agar cinta pasangan terus tumbuh dan berkembang.",
+            "Symbolizes sincere love, loyalty, and hope. This motif is often used in wedding ceremonies as a prayer that the couple's love continues to grow and develop.",
         color: "from-pink-500 to-rose-600",
         icon: "🌸",
     },
@@ -97,6 +97,7 @@ export default function NusaCamPage() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
     const streamRef = useRef<MediaStream | null>(null)
+
     const startCamera = async () => {
         try {
             setError(null)
@@ -119,7 +120,7 @@ export default function NusaCamPage() {
             }
         } catch (err) {
             console.log(err)
-            setError("Tidak dapat mengakses kamera. Pastikan izin kamera telah diberikan.")
+            setError("Cannot access camera. Please ensure camera permission is granted.")
             setIsCameraActive(false)
         }
     }
@@ -176,33 +177,38 @@ export default function NusaCamPage() {
             setPredictionError(null)
             stopCamera()
         } else {
-            setError("Silakan pilih file gambar yang valid (JPG, PNG, dll.)")
+            setError("Please select a valid image file (JPG, PNG, etc.)")
         }
     }
 
     const predictBatik = async () => {
         if (!selectedFile) return
+
         setIsLoading(true)
         setError(null)
         setPrediction(null)
         setPredictionError(null)
+
         try {
             const formData = new FormData()
             formData.append("image", selectedFile)
+
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/predict/batik`, {
                 method: "POST",
                 body: formData,
             })
+
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}))
                 throw new Error(errorData.message || `Server error: ${response.status}`)
             }
+
             const result = await response.json()
 
             // Map prediction result to batik pattern info
             const patternInfo = BATIK_PATTERNS[result.prediction as keyof typeof BATIK_PATTERNS]
             if (!patternInfo) {
-                throw new Error("Motif batik tidak dikenali")
+                throw new Error("Batik pattern not recognized")
             }
 
             setPrediction({
@@ -212,7 +218,7 @@ export default function NusaCamPage() {
             console.log(prediction)
         } catch (err) {
             console.error("Prediction error:", err)
-            const errorMessage = err instanceof Error ? err.message : "Terjadi kesalahan yang tidak diketahui"
+            const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"
             setPredictionError(errorMessage)
         } finally {
             setIsLoading(false)
@@ -266,7 +272,7 @@ export default function NusaCamPage() {
                         <span>Nusa Cam</span>
                     </h1>
                     <p className="text-xs sm:text-sm md:text-base lg:text-lg text-nusa-brown px-2 sm:px-4 leading-relaxed">
-                        Scan dan identifikasi motif batik dengan teknologi AI
+                        Scan and identify batik patterns with AI technology
                     </p>
                 </div>
 
@@ -287,7 +293,7 @@ export default function NusaCamPage() {
                         <CardHeader className="bg-gradient-to-r from-nusa-gold/10 to-nusa-bronze/10 p-0 sm:p-4 lg:p-6">
                             <CardTitle className="flex items-center justify-center gap-2 text-nusa-darkBrown text-sm sm:text-base md:text-lg lg:text-xl">
                                 <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-nusa-bronze flex-shrink-0" />
-                                <span className="truncate min-w-0">{isCameraActive ? "Preview Kamera" : "Ambil atau Upload Foto"}</span>
+                                <span className="truncate min-w-0">{isCameraActive ? "Camera Preview" : "Take or Upload Photo"}</span>
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-3 sm:p-4 lg:p-6">
@@ -317,7 +323,7 @@ export default function NusaCamPage() {
                                             <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
                                                 <div className="text-white text-center p-3 sm:p-4">
                                                     <Loader2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 animate-spin mx-auto mb-2" />
-                                                    <p className="text-xs sm:text-sm md:text-base">Memuat kamera...</p>
+                                                    <p className="text-xs sm:text-sm md:text-base">Loading camera...</p>
                                                 </div>
                                             </div>
                                         )}
@@ -332,12 +338,12 @@ export default function NusaCamPage() {
                                             {!cameraReady ? (
                                                 <>
                                                     <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-spin flex-shrink-0" />
-                                                    <span>Tunggu...</span>
+                                                    <span>Please wait...</span>
                                                 </>
                                             ) : (
                                                 <>
                                                     <Camera className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
-                                                    <span>Ambil Foto</span>
+                                                    <span>Take Photo</span>
                                                 </>
                                             )}
                                         </Button>
@@ -347,12 +353,12 @@ export default function NusaCamPage() {
                                             className="w-full border-red-300 text-red-600 hover:bg-red-50 bg-transparent text-xs sm:text-sm md:text-base min-h-[44px] touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                         >
                                             <X className="w-4 h-4 mr-2 flex-shrink-0" />
-                                            <span>Tutup Kamera</span>
+                                            <span>Close Camera</span>
                                         </Button>
                                     </div>
                                     {/* Camera Tips */}
                                     <div className="text-center text-xs sm:text-sm text-nusa-brown bg-nusa-gold/10 p-2 sm:p-3 rounded-lg">
-                                        <p>Arahkan kamera ke motif batik dan tekan &quot;Ambil Foto&quot;</p>
+                                        <p>Point the camera at the batik pattern and press &quot;Take Photo&quot;</p>
                                     </div>
                                 </div>
                             )}
@@ -363,7 +369,7 @@ export default function NusaCamPage() {
                                     <div className="relative">
                                         <img
                                             src={selectedImage || "/placeholder.svg"}
-                                            alt="Foto yang dipilih"
+                                            alt="Selected photo"
                                             className="w-full rounded-lg aspect-video object-cover shadow-md"
                                         />
                                         <Button
@@ -385,12 +391,12 @@ export default function NusaCamPage() {
                                             {isLoading ? (
                                                 <>
                                                     <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-spin flex-shrink-0" />
-                                                    <span className="truncate">Menganalisis Motif...</span>
+                                                    <span className="truncate">Analyzing Pattern...</span>
                                                 </>
                                             ) : (
                                                 <>
                                                     <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
-                                                    <span className="truncate">Identifikasi Motif Batik</span>
+                                                    <span className="truncate">Identify Batik Pattern</span>
                                                 </>
                                             )}
                                         </Button>
@@ -401,7 +407,7 @@ export default function NusaCamPage() {
                                                 className="border-nusa-bronze text-nusa-bronze hover:bg-nusa-bronze/10 bg-transparent text-xs sm:text-sm md:text-base min-h-[44px] touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                             >
                                                 <Camera className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
-                                                <span className="truncate">Foto Lagi</span>
+                                                <span className="truncate">Take Another</span>
                                             </Button>
                                             <Button
                                                 onClick={() => fileInputRef.current?.click()}
@@ -409,7 +415,7 @@ export default function NusaCamPage() {
                                                 className="border-nusa-gold text-nusa-gold hover:bg-nusa-gold/10 text-xs sm:text-sm md:text-base min-h-[44px] touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                             >
                                                 <Upload className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
-                                                <span className="truncate">Upload Lain</span>
+                                                <span className="truncate">Upload Other</span>
                                             </Button>
                                         </div>
                                     </div>
@@ -426,10 +432,10 @@ export default function NusaCamPage() {
                                     >
                                         <ImageIcon className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 text-nusa-bronze/50" />
                                         <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-nusa-darkBrown mb-1 sm:mb-2">
-                                            Upload Foto Batik
+                                            Upload Batik Photo
                                         </h3>
                                         <p className="text-xs sm:text-sm lg:text-base text-nusa-brown mb-2 sm:mb-3 lg:mb-4 px-2">
-                                            Klik untuk memilih foto dari galeri
+                                            Click to select photo from gallery
                                         </p>
                                         <p className="text-xs text-nusa-brown/70">Format: JPG, PNG, JPEG</p>
                                     </div>
@@ -439,7 +445,7 @@ export default function NusaCamPage() {
                                             <div className="w-full border-t border-nusa-gold/20"></div>
                                         </div>
                                         <div className="relative flex justify-center text-xs sm:text-sm">
-                                            <span className="px-3 sm:px-4 bg-white text-nusa-brown">atau</span>
+                                            <span className="px-3 sm:px-4 bg-white text-nusa-brown">or</span>
                                         </div>
                                     </div>
                                     {/* Camera Button */}
@@ -448,14 +454,15 @@ export default function NusaCamPage() {
                                         className="w-full bg-nusa-bronze hover:bg-amber-600 text-white py-3 sm:py-4 lg:py-5 text-sm sm:text-base lg:text-lg font-semibold min-h-[44px] touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                     >
                                         <Camera className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
-                                        <span>Buka Kamera</span>
+                                        <span>Open Camera</span>
                                     </Button>
                                     {/* Tips */}
                                     <div className="text-center text-xs sm:text-sm text-nusa-brown/70 bg-nusa-gold/5 p-2 sm:p-3 rounded-lg">
-                                        <p>💡 Tip: Gunakan kamera untuk hasil terbaik dengan pencahayaan yang cukup</p>
+                                        <p>💡 Tip: Use camera for best results with adequate lighting</p>
                                     </div>
                                 </div>
                             )}
+
                             {/* Hidden File Input */}
                             <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
                         </CardContent>
@@ -466,7 +473,7 @@ export default function NusaCamPage() {
                         <CardHeader className="bg-gradient-to-r from-nusa-green/10 to-nusa-gold/10 p-0 sm:p-4 lg:p-6">
                             <CardTitle className="flex items-center justify-center gap-2 text-nusa-darkBrown text-sm sm:text-base md:text-lg lg:text-xl">
                                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-nusa-green flex-shrink-0" />
-                                <span className="truncate min-w-0">Hasil Identifikasi</span>
+                                <span className="truncate min-w-0">Identification Results</span>
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-3 sm:p-4 lg:p-6">
@@ -477,10 +484,10 @@ export default function NusaCamPage() {
                                         <Camera className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 text-nusa-bronze/50" />
                                     </div>
                                     <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-nusa-darkBrown mb-1 sm:mb-2">
-                                        Belum Ada Foto
+                                        No Photo Yet
                                     </h3>
                                     <p className="text-xs sm:text-sm lg:text-base text-nusa-brown px-2 sm:px-4 leading-relaxed">
-                                        Ambil foto dengan kamera atau upload dari galeri untuk memulai identifikasi
+                                        Take a photo with camera or upload from gallery to start identification
                                     </p>
                                 </div>
                             )}
@@ -492,10 +499,10 @@ export default function NusaCamPage() {
                                         <Camera className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 text-nusa-bronze" />
                                     </div>
                                     <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-nusa-darkBrown mb-1 sm:mb-2">
-                                        Kamera Aktif
+                                        Camera Active
                                     </h3>
                                     <p className="text-xs sm:text-sm lg:text-base text-nusa-brown px-2 sm:px-4 leading-relaxed">
-                                        Arahkan kamera ke motif batik dan ambil foto untuk analisis
+                                        Point the camera at the batik pattern and take a photo for analysis
                                     </p>
                                 </div>
                             )}
@@ -507,10 +514,10 @@ export default function NusaCamPage() {
                                         <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 text-nusa-gold" />
                                     </div>
                                     <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-nusa-darkBrown mb-1 sm:mb-2">
-                                        Foto Siap Dianalisis
+                                        Photo Ready for Analysis
                                     </h3>
                                     <p className="text-xs sm:text-sm lg:text-base text-nusa-brown px-2 sm:px-4 leading-relaxed">
-                                        Klik &quot;Identifikasi Motif Batik&quot; untuk memulai analisis AI
+                                        Click &quot;Identify Batik Pattern&quot; to start AI analysis
                                     </p>
                                 </div>
                             )}
@@ -522,13 +529,13 @@ export default function NusaCamPage() {
                                         <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 animate-spin text-nusa-bronze" />
                                     </div>
                                     <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-nusa-darkBrown mb-1 sm:mb-2">
-                                        Menganalisis Motif
+                                        Analyzing Pattern
                                     </h3>
                                     <p className="text-xs sm:text-sm lg:text-base text-nusa-brown px-2 sm:px-4 leading-relaxed">
-                                        AI sedang mengidentifikasi pola dan motif batik...
+                                        AI is identifying batik patterns and motifs...
                                     </p>
                                     <div className="mt-3 sm:mt-4 bg-nusa-gold/10 rounded-lg p-2 sm:p-3 mx-2 sm:mx-0">
-                                        <p className="text-xs sm:text-sm text-nusa-brown">⏳ Proses ini membutuhkan beberapa detik</p>
+                                        <p className="text-xs sm:text-sm text-nusa-brown">⏳ This process takes a few seconds</p>
                                     </div>
                                 </div>
                             )}
@@ -540,20 +547,20 @@ export default function NusaCamPage() {
                                         <AlertCircle className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 text-red-600" />
                                     </div>
                                     <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-red-800 mb-1 sm:mb-2">
-                                        Gagal Menganalisis
+                                        Analysis Failed
                                     </h3>
                                     <p className="text-xs sm:text-sm lg:text-base text-red-700 px-2 sm:px-4 mb-3 sm:mb-4 break-words">
                                         {predictionError}
                                     </p>
                                     <div className="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4 mb-3 sm:mb-4 text-left mx-2 sm:mx-0">
                                         <h4 className="font-semibold text-red-800 mb-2 text-xs sm:text-sm lg:text-base">
-                                            Kemungkinan penyebab:
+                                            Possible causes:
                                         </h4>
                                         <ul className="text-xs sm:text-sm text-red-700 space-y-1 list-disc list-inside leading-relaxed">
-                                            <li>Koneksi internet tidak stabil</li>
-                                            <li>Server sedang mengalami gangguan</li>
-                                            <li>Format atau ukuran gambar tidak didukung</li>
-                                            <li>Gambar terlalu buram atau gelap</li>
+                                            <li>Unstable internet connection</li>
+                                            <li>Server experiencing issues</li>
+                                            <li>Unsupported image format or size</li>
+                                            <li>Image too blurry or dark</li>
                                         </ul>
                                     </div>
                                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center px-2 sm:px-0">
@@ -562,7 +569,7 @@ export default function NusaCamPage() {
                                             className="bg-nusa-bronze hover:bg-amber-600 text-white text-xs sm:text-sm lg:text-base min-h-[44px] touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                         >
                                             <RefreshCw className="w-4 h-4 mr-2 flex-shrink-0" />
-                                            <span>Coba Lagi</span>
+                                            <span>Try Again</span>
                                         </Button>
                                         <Button
                                             onClick={resetAll}
@@ -570,7 +577,7 @@ export default function NusaCamPage() {
                                             className="border-nusa-gold text-nusa-darkBrown hover:bg-nusa-gold/10 text-xs sm:text-sm lg:text-base bg-transparent min-h-[44px] touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                         >
                                             <RotateCcw className="w-4 h-4 mr-2 flex-shrink-0" />
-                                            <span>Pilih Foto Lain</span>
+                                            <span>Select Another Photo</span>
                                         </Button>
                                     </div>
                                 </div>
@@ -579,7 +586,7 @@ export default function NusaCamPage() {
                             {/* Prediction Results */}
                             {prediction && !predictionError && (
                                 <div className="space-y-4 sm:space-y-5 lg:space-y-6">
-                                    {/* Motif Header with Icon */}
+                                    {/* Pattern Header with Icon */}
                                     <div className="text-center pb-4 border-b border-nusa-gold/20">
                                         <div className="flex items-center justify-center gap-0 mb-3">
                                             <div className="text-3xl sm:text-4xl lg:text-5xl">{prediction.icon}</div>
@@ -587,16 +594,14 @@ export default function NusaCamPage() {
                                                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-nusa-darkBrown break-words leading-tight">
                                                     Batik {prediction.name}
                                                 </h3>
-                                                <p className="text-xs sm:text-sm text-nusa-brown/70 mt-1">
-                                                    {prediction.origin}
-                                                </p>
+                                                <p className="text-xs sm:text-sm text-nusa-brown/70 mt-1">{prediction.origin}</p>
                                             </div>
                                         </div>
                                         <Badge
                                             className={`${getConfidenceColor(prediction.confidence)} px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium border`}
                                         >
                                             <Star className="w-3 h-3 mr-1 flex-shrink-0" />
-                                            Akurasi: {(prediction.confidence * 100).toFixed(1)}%
+                                            Accuracy: {(prediction.confidence * 100).toFixed(1)}%
                                         </Badge>
                                     </div>
 
@@ -606,7 +611,7 @@ export default function NusaCamPage() {
                                     >
                                         <h4 className="font-bold text-nusa-darkBrown mb-3 flex items-center gap-2 text-sm sm:text-base lg:text-lg">
                                             <div className={`w-3 h-3 bg-gradient-to-r ${prediction.color} rounded-full flex-shrink-0`}></div>
-                                            <span>Tentang Motif</span>
+                                            <span>About the Pattern</span>
                                         </h4>
                                         <p className="text-nusa-brown leading-relaxed text-xs sm:text-sm lg:text-base break-words">
                                             {prediction.description}
@@ -617,7 +622,7 @@ export default function NusaCamPage() {
                                     <div className="bg-gradient-to-r from-nusa-green/10 to-emerald-100/50 p-4 sm:p-5 rounded-xl border border-nusa-green/20">
                                         <h4 className="font-bold text-nusa-darkBrown mb-3 flex items-center gap-2 text-sm sm:text-base lg:text-lg">
                                             <div className="w-3 h-3 bg-nusa-green rounded-full flex-shrink-0"></div>
-                                            <span>Makna & Filosofi</span>
+                                            <span>Meaning & Philosophy</span>
                                         </h4>
                                         <p className="text-nusa-brown leading-relaxed text-xs sm:text-sm lg:text-base break-words">
                                             {prediction.cultural_significance}
@@ -631,7 +636,7 @@ export default function NusaCamPage() {
                                             className="flex-1 bg-nusa-bronze hover:bg-amber-600 text-white text-xs sm:text-sm lg:text-base min-h-[44px] touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                         >
                                             <RotateCcw className="w-4 h-4 mr-2 flex-shrink-0" />
-                                            <span className="truncate">Scan Lagi</span>
+                                            <span className="truncate">Scan Again</span>
                                         </Button>
                                     </div>
                                 </div>
@@ -645,10 +650,11 @@ export default function NusaCamPage() {
                     <div className="flex items-start gap-2 mb-2">
                         <Info className="w-4 h-4 text-gray-600 flex-shrink-0 mt-0.5" />
                         <div>
-                            <h5 className="font-semibold text-gray-800 text-xs sm:text-sm">Tentang Model AI</h5>
+                            <h5 className="font-semibold text-gray-800 text-xs sm:text-sm">About AI Model</h5>
                             <p className="text-gray-600 text-xs leading-relaxed mt-1">
-                                Model menggunakan arsitektur ResNet50 dan masih dalam tahap pengembangan. Hasil prediksi dapat
-                                terus ditingkatkan seiring bertambahnya data. Penggunaan Model lebih lanjut tidak hanya terbatas pada batik, namun bisa ke dalam artefak budaya lainnya.
+                                The model uses ResNet50 architecture and is still under development. Prediction results can continue to
+                                improve as more data is added. Further use of the model is not limited to batik, but can extend to other
+                                cultural artifacts.
                             </p>
                             <p className="text-gray-500 text-xs mt-2">
                                 model credit to <span className="font-medium text-gray-700">Stefaron</span>

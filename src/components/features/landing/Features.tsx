@@ -3,7 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { 
+import {
   ArrowRight,
   Sparkles,
 } from 'lucide-react'
@@ -33,10 +33,11 @@ export function Features() {
     },
     {
       image: '/nusa-native.svg',
-      title: tSync('features.native.title', 'Nusa Native'),
-      description: tSync('features.native.description', 'AI assistant and translator that helps you communicate perfectly in regional languages.'),
+      title: tSync('features.native.title', 'Nusa Journey'),
+      description: tSync('features.native.description', 'AI assistant that helps you plan your trip and itineraries based on your destination and travel dates.'
+      ),
       gradient: 'from-nusa-bronze to-nusa-brown',
-      href: '/nusa-native',
+      href: '/nusa-journey',
       badge: tSync('features.native.badge', 'AI Powered')
     },
     {
@@ -81,7 +82,7 @@ export function Features() {
               {tSync('features.badge', 'Platform Features')}
             </span>
           </div>
-          
+
           <h2 className="text-4xl md:text-5xl font-extrabold text-nusa-dark-brown mb-6 tracking-tight">
             <span className="text-gradient-primary">
               {tSync('features.title', 'Outstanding Features')}
@@ -94,7 +95,7 @@ export function Features() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => (
-            <Card 
+            <Card
               key={index}
               className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-white/90 backdrop-blur-sm hover:transform hover:scale-105 overflow-hidden"
             >
@@ -110,11 +111,11 @@ export function Features() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
-                  
+
                   {/* Badge on image */}
                   <div className="absolute top-4 left-4">
-                    <Badge 
-                      variant="secondary" 
+                    <Badge
+                      variant="secondary"
                       className="bg-white/90 backdrop-blur-sm text-nusa-dark-brown border-0 shadow-lg"
                     >
                       {feature.badge}
@@ -127,7 +128,7 @@ export function Features() {
                   <h3 className="text-xl font-bold text-nusa-dark-brown mb-3 group-hover:text-nusa-gold transition-colors tracking-tight">
                     {feature.title}
                   </h3>
-                  
+
                   <p className="text-nusa-brown leading-relaxed mb-6 text-sm">
                     {feature.description}
                   </p>
@@ -152,7 +153,7 @@ export function Features() {
             <p className="text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
               {tSync('features.cta.description', 'Join thousands of users who have experienced the extraordinary journey of exploring the cultural richness of the archipelago.')}
             </p>
-            <Button 
+            <Button
               size="lg"
               className="bg-white text-nusa-dark-brown hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 font-medium px-8"
               asChild
