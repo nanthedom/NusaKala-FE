@@ -50,7 +50,8 @@ export const useAuthStore = create<AuthState>()(
         location: {
           current: { lat: -6.2088, lng: 106.8456 },
           visited_provinces: ['jakarta', 'jogja', 'bali']
-        }
+        },
+        avatar: ''
       }, // Demo user for development
       isAuthenticated: true, // Set to true for demo
       isLoading: false,
@@ -74,7 +75,8 @@ export const useAuthStore = create<AuthState>()(
             location: {
               current: { lat: -6.2088, lng: 106.8456 },
               visited_provinces: ['jakarta', 'jogja', 'bali']
-            }
+            },
+            avatar: ''
           }
           
           set({ user: mockUser, isAuthenticated: true, isLoading: false })
@@ -100,7 +102,8 @@ export const useAuthStore = create<AuthState>()(
               streak: 0,
               points: 0,
               ...userData.profile
-            }
+            },
+            avatar: ''
           }
           
           set({ user: newUser, isAuthenticated: true, isLoading: false })
