@@ -89,7 +89,7 @@ export function Footer() {
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-sm text-nusa-beige">
-                <span>© 2024 NusaKala. {tSync('footer.copyright', 'All rights reserved.')}</span>
+                <span>© 2025 NusaKala. {tSync('footer.copyright', 'All rights reserved.')}</span>
               </div>
               
               <div className="flex items-center gap-2 text-sm text-nusa-beige">
