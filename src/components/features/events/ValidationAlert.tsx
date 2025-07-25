@@ -3,14 +3,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { CheckCircle, AlertTriangle, Info, X } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { type ValidationResult } from '@/services/event.service'
 
 interface ValidationAlertProps {
-  validationResult: {
-    status: 'approved' | 'pending_review' | 'rejected'
-    score: number
-    warnings: string[]
-    suggestions: string[]
-  } | null
+  validationResult: ValidationResult | null
   isValidating: boolean
   onApplySuggestion?: (suggestion: string) => void
   onDismiss?: () => void
@@ -52,9 +48,11 @@ export function ValidationAlert({
         </AlertTitle>
         <AlertDescription className="text-green-700">
           {tSync('validation.approvedDesc', 'Your content meets our quality standards')}
-          <Badge variant="outline" className="ml-2 text-xs">
-            Score: {Math.round(score * 100)}%
-          </Badge>
+          {score && (
+            <Badge variant="outline" className="ml-2 text-xs">
+              Score: {Math.round(score * 100)}%
+            </Badge>
+          )}
         </AlertDescription>
       </Alert>
     )
@@ -69,9 +67,11 @@ export function ValidationAlert({
         </AlertTitle>
         <AlertDescription className="text-yellow-700">
           {tSync('validation.pendingReviewDesc', 'Your content will be reviewed by our team')}
-          <Badge variant="outline" className="ml-2 text-xs">
-            Score: {Math.round(score * 100)}%
-          </Badge>
+          {score && (
+            <Badge variant="outline" className="ml-2 text-xs">
+              Score: {Math.round(score * 100)}%
+            </Badge>
+          )}
         </AlertDescription>
       </Alert>
     )
@@ -89,9 +89,11 @@ export function ValidationAlert({
               </AlertTitle>
               <AlertDescription className="text-red-700 mt-1">
                 {tSync('validation.rejectedDesc', 'Please review and update your content')}
-                <Badge variant="outline" className="ml-2 text-xs">
-                  Score: {Math.round(score * 100)}%
-                </Badge>
+                {score && (
+                  <Badge variant="outline" className="ml-2 text-xs">
+                    Score: {Math.round(score * 100)}%
+                  </Badge>
+                )}
               </AlertDescription>
             </div>
           </div>
@@ -108,7 +110,7 @@ export function ValidationAlert({
         </div>
 
         {/* Warnings */}
-        {warnings.length > 0 && (
+        {warnings && warnings.length > 0 && (
           <div className="mt-3">
             <h4 className="text-sm font-medium text-red-800 mb-2">
               {tSync('validation.warnings', 'Warnings:')}
@@ -125,7 +127,7 @@ export function ValidationAlert({
         )}
 
         {/* Suggestions */}
-        {suggestions.length > 0 && (
+        {suggestions && suggestions.length > 0 && (
           <div className="mt-3">
             <h4 className="text-sm font-medium text-red-800 mb-2">
               {tSync('validation.suggestions', 'Suggestions:')}

@@ -1,15 +1,5 @@
+import apiClient from '@/lib/axios'
 import axios from 'axios'
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
-
-// Configure axios to include credentials for cookie-based auth
-const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
 
 export interface User {
   id: string
@@ -47,7 +37,7 @@ class AuthService {
   async register(data: RegisterData): Promise<AuthResponse> {
     try {
       // Debug: Log the request
-      console.log('Sending registration request to:', `${API_BASE_URL}/auth/register`)
+      console.log('Sending registration request to:', `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'}/auth/register`)
       console.log('Registration data:', data)
       
       const response = await apiClient.post<AuthResponse>('/auth/register', data)
