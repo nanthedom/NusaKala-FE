@@ -13,7 +13,9 @@ import {
   getTodayTriviaStatus, 
   markTriviaShown, 
   getUserStreak,
-  getAllUserStreaks
+  getAllUserStreaks,
+  type TriviaStatus,
+  type UserStreak
 } from '@/lib/trivia'
 import { getTodayTrivia } from '@/data/triviaData'
 import { useEvents } from '@/hooks/useEvents'
@@ -26,9 +28,9 @@ export default function NusaDiscoveryPage() {
   const { events, loading: eventsLoading } = useEvents()
   const [showTrivia, setShowTrivia] = useState(false)
   const [todayTrivia, setTodayTrivia] = useState(getTodayTrivia())
-  const [triviaStatus, setTriviaStatus] = useState<any>(null)
-  const [userStreak, setUserStreak] = useState<any>(null)
-  const [leaderboardData, setLeaderboardData] = useState<any[]>([])
+  const [triviaStatus, setTriviaStatus] = useState<TriviaStatus | null>(null)
+  const [userStreak, setUserStreak] = useState<UserStreak | null>(null)
+  const [leaderboardData, setLeaderboardData] = useState<UserStreak[]>([])
 
   useEffect(() => {
     if (user) {
@@ -135,7 +137,7 @@ export default function NusaDiscoveryPage() {
               Welcome to Nusa, {user.email}! 🇮🇩
             </h1>
             <p className="text-lg text-orange-700">
-              Explore Indonesia's rich cultural heritage and test your knowledge
+              Explore Indonesia&apos;s rich cultural heritage and test your knowledge
             </p>
           </div>
 

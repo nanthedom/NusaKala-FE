@@ -85,7 +85,7 @@ export function EventForm({
     enabled: formData.description.length >= 50
   })
 
-  const handleInputChange = (field: keyof EventData, value: any) => {
+  const handleInputChange = (field: keyof EventData, value: string | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }))
 
     if (errors[field]) {

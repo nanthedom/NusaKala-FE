@@ -131,7 +131,7 @@ export default function CreatorProfilePage({ creatorId }: CreatorProfileProps) {
               ].map((tab) => (
                 <button
                   key={tab.key}
-                  onClick={() => setActiveTab(tab.key as any)}
+                  onClick={() => setActiveTab(tab.key as 'description' | 'post' | 'mentions')}
                   className={`flex-1 py-4 px-6 text-sm font-medium transition-colors relative ${
                     activeTab === tab.key
                       ? 'text-nusa-darkBrown'

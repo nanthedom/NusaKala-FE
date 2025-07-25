@@ -8,7 +8,7 @@ import { Province } from '@/services/map.service'
 import { MapPin } from 'lucide-react'
 
 // Fix for default markers
-delete (L.Icon.Default.prototype as any)._getIconUrl
+delete (L.Icon.Default.prototype as Record<string, any>)._getIconUrl
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: '/leaflet/marker-icon-2x.png',
   iconUrl: '/leaflet/marker-icon.png',
@@ -60,11 +60,11 @@ export default function MapContainer({
   selectedProvince, 
   onProvinceClick 
 }: MapContainerProps) {
-  const [geoJsonData, setGeoJsonData] = useState<any>(null)
+  const [geoJsonData, setGeoJsonData] = useState<GeoJSON.FeatureCollection | null>(null)
 
   // Style for GeoJSON layers
   const geoJsonStyle = (feature: any) => {
-    const isSelected = selectedProvince?.id === feature.properties.id
+    const isSelected = selectedProvince?.id === feature.properties?.id
     return {
       fillColor: isSelected ? '#D4AF37' : '#228B22',
       weight: 2,
@@ -76,7 +76,7 @@ export default function MapContainer({
   }
 
   // Handle feature click
-  const onEachFeature = (feature: any, layer: any) => {
+  const onEachFeature = (feature: any, layer: L.Layer) => {
     layer.on({
       click: () => {
         const province = provinces.find(p => p.id === feature.properties.id)
@@ -84,7 +84,7 @@ export default function MapContainer({
           onProvinceClick(province)
         }
       },
-      mouseover: (e: any) => {
+      mouseover: (e: L.LeafletMouseEvent) => {
         const layer = e.target
         layer.setStyle({
           weight: 3,
@@ -93,7 +93,7 @@ export default function MapContainer({
           fillOpacity: 0.9
         })
       },
-      mouseout: (e: any) => {
+      mouseout: (e: L.LeafletMouseEvent) => {
         const layer = e.target
         layer.setStyle(geoJsonStyle(feature))
       }

@@ -174,11 +174,19 @@ export type TranslationKey = keyof typeof translations.id
 
 export function getTranslation(lang: Language, key: string): string {
   const keys = key.split('.')
-  let current: any = translations[lang] || translations.id
-  
+  let current: unknown = translations[lang] || translations.id
+
   for (const k of keys) {
-    current = current?.[k]
+    if (typeof current === 'object' && current !== null && k in current) {
+      // Type assertion is safe here because we check for object and key existence
+      current = (current as Record<string, unknown>)[k]
+    } else {
+      return key
+    }
   }
-  
-  return current || key
+
+  if (typeof current === 'string') {
+    return current
+  }
+  return key;
 }

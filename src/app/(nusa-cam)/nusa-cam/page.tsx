@@ -427,7 +427,7 @@ export default function NusaCamPage() {
                                 <div className="space-y-4 sm:space-y-6">
                                     {/* Upload Area - Better mobile touch target */}
                                     <div
-                                        className="border-2 border-dashed border-nusa-gold/30 rounded-lg p-4 sm:p-6 lg:p-8 text-center hover:border-nusa-gold/50 transition-colors cursor-pointer min-h-[120px] sm:min-h-[140px] flex flex-col items-center justify-center touch-manipulation cursor-pointer disabled:cursor-not-allowed"
+                                        className="border-2 border-dashed border-nusa-gold/30 rounded-lg p-4 sm:p-6 lg:p-8 text-center hover:border-nusa-gold/50 transition-colors min-h-[120px] sm:min-h-[140px] flex flex-col items-center justify-center touch-manipulation cursor-pointer disabled:cursor-not-allowed"
                                         onClick={() => fileInputRef.current?.click()}
                                     >
                                         <ImageIcon className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 text-nusa-bronze/50" />

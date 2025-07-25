@@ -104,7 +104,7 @@ class TranslationService {
       const response = await fetch(`${this.baseUrl}/languages?key=${this.apiKey}&target=en`)
       const data = await response.json()
       
-      return data.data.languages.map((lang: any) => ({
+      return data.data.languages.map((lang: { language: string; name: string }) => ({
         code: lang.language,
         name: lang.name
       }))

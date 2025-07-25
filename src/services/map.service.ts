@@ -71,7 +71,7 @@ class MapService {
   }
 
   // Fetch GeoJSON data for province boundaries
-  async getProvinceGeoJSON(provinceId: string): Promise<any> {
+  async getProvinceGeoJSON(provinceId: string): Promise<GeoJSON.FeatureCollection | null> {
     try {
       // You can use public GeoJSON data or your own
       const response = await axios.get(`/data/geojson/provinces/${provinceId}.json`)
