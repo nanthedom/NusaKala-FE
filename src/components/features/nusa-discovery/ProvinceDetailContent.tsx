@@ -195,7 +195,7 @@ export function ProvinceDetailContent({ province }: ProvinceDetailContentProps) 
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center space-y-6">
-            <Button
+            {/* <Button
               variant="ghost"
               onClick={() => router.back()}
               className="absolute top-3 left-3 md:top-4 md:left-4 text-white hover:bg-white/20 !px-3 !py-2 md:!px-4 md:!py-2 text-sm md:text-base"
@@ -203,7 +203,7 @@ export function ProvinceDetailContent({ province }: ProvinceDetailContentProps) 
               <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 mr-2" />
               <span className="hidden xs:inline">Back to Map</span>
               <span className="inline xs:hidden">Back</span>
-            </Button>
+            </Button> */}
             
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight break-words">
               Cultural Heritage of {data.province_name}
