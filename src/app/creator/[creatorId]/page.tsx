@@ -2,13 +2,14 @@
 import CreatorProfilePage from "../../../components/features/creator/CreatorProfilePage";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     creatorId: string;
-  };
+  }>;
 }
 
-export default function CreatorProfile({ params }: PageProps) {
-  return <CreatorProfilePage creatorId={params.creatorId} />;
+export default async function CreatorProfile({ params }: PageProps) {
+  const resolvedParams = await params;
+  return <CreatorProfilePage creatorId={resolvedParams.creatorId} />;
 }
 
 export async function generateStaticParams() {

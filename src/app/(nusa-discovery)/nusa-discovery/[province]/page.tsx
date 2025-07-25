@@ -4,11 +4,12 @@ import { ProvinceDetailLoading } from '@/components/features/nusa-discovery/Prov
 import { ProvinceDetailParams } from '@/types/province.types';
 
 interface ProvinceDetailPageProps {
-  params: ProvinceDetailParams;
+  params: Promise<ProvinceDetailParams>;
 }
 
 export async function generateMetadata({ params }: ProvinceDetailPageProps) {
-  const provinceName = decodeURIComponent(params.province)
+  const resolvedParams = await params;
+  const provinceName = decodeURIComponent(resolvedParams.province)
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
@@ -20,11 +21,13 @@ export async function generateMetadata({ params }: ProvinceDetailPageProps) {
   };
 }
 
-export default function ProvinceDetailPage({ params }: ProvinceDetailPageProps) {
+export default async function ProvinceDetailPage({ params }: ProvinceDetailPageProps) {
+  const resolvedParams = await params;
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-yellow-50">
       <Suspense fallback={<ProvinceDetailLoading />}>
-        <ProvinceDetailContent province={params.province} />
+        <ProvinceDetailContent province={resolvedParams.province} />
       </Suspense>
     </div>
   );
