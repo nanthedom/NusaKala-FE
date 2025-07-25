@@ -178,7 +178,7 @@ export function EventForm({
 
     try {
       // TODO: Replace with actual API endpoint
-      const response = await fetch(`http://localhost:3001/api/events${mode === 'edit' ? `/${eventId}` : ''}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events${mode === 'edit' ? `/${eventId}` : ''}`, {
         method: mode === 'edit' ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',

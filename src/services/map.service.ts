@@ -30,7 +30,7 @@ export interface CulturalSite {
 }
 
 class MapService {
-  private apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'
+  private apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
 
   // Fetch all provinces data
   async getProvinces(): Promise<Province[]> {

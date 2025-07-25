@@ -189,7 +189,7 @@ export default function NusaCamPage() {
         try {
             const formData = new FormData()
             formData.append("image", selectedFile)
-            const response = await fetch(`http://localhost:3001/api/predict/batik`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/predict/batik`, {
                 method: "POST",
                 body: formData,
             })
