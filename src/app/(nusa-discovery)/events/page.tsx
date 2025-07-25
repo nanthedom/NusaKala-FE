@@ -11,9 +11,10 @@ export default function EventsPage() {
       </div>
       
       <main className="relative">
-        <section className="relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-nusa-cream/95 via-nusa-beige/85 to-nusa-cream/95 -z-10"></div>
-          <EventsSection />
+        <section className="py-16 px-4">
+          <div className="container mx-auto max-w-7xl">
+            <EventsSection />
+          </div>
         </section>
       </main>
     </div>

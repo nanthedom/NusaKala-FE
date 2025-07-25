@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Filter, Calendar, Clock, CheckCircle } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useEvents } from '@/hooks/useEvents'
 
 interface EventFilterProps {
   selectedStatus: string
@@ -19,21 +20,15 @@ const statusOptions = [
   { value: 'past', label: 'Past', icon: CheckCircle }
 ]
 
-const typeOptions = [
-  { value: 'all', label: 'All Types' },
-  { value: 'cultural', label: 'Cultural' },
-  { value: 'festival', label: 'Festival' },
-  { value: 'workshop', label: 'Workshop' },
-  { value: 'exhibition', label: 'Exhibition' },
-  { value: 'concert', label: 'Concert' },
-  { value: 'seminar', label: 'Seminar' },
-  { value: 'performance', label: 'Performance' },
-  { value: 'art', label: 'Art' },
-  { value: 'music', label: 'Music' },
-  { value: 'education', label: 'Education' },
-  { value: 'traditional', label: 'Traditional' },
-  { value: 'craft', label: 'Craft' }
-]
+// Helper function to normalize type names
+const normalizeTypeName = (type: string): string => {
+  return type.toLowerCase().replace(/_/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
+// Helper function to get display name for a type
+const getDisplayName = (type: string): string => {
+  return type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+}
 
 export function EventFilter({ 
   selectedStatus, 
@@ -42,6 +37,42 @@ export function EventFilter({
   onTypeChange 
 }: EventFilterProps) {
   const { tSync } = useTranslation()
+  const { events } = useEvents()
+
+  // Generate type options dynamically from events data with grouping
+  const getTypeOptions = () => {
+    const typeGroups = new Map<string, string[]>()
+    
+    events.forEach(event => {
+      event.types.forEach(type => {
+        const normalized = normalizeTypeName(type)
+        if (!typeGroups.has(normalized)) {
+          typeGroups.set(normalized, [])
+        }
+        if (!typeGroups.get(normalized)!.includes(type)) {
+          typeGroups.get(normalized)!.push(type)
+        }
+      })
+    })
+
+    const typeOptions = [
+      { value: 'all', label: 'All Types' },
+      ...Array.from(typeGroups.entries()).sort().map(([normalized, types]) => {
+        // Use the most readable version as display name
+        const displayName = getDisplayName(types[0])
+        // Use the normalized name as value for filtering
+        return {
+          value: normalized,
+          label: displayName,
+          originalTypes: types
+        }
+      })
+    ]
+
+    return typeOptions
+  }
+
+  const typeOptions = getTypeOptions()
 
   return (
     <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-nusa-gold/20">

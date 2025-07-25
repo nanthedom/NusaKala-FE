@@ -15,6 +15,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { useEventValidation } from '@/hooks/useEventValidation'
 import { ValidationAlert } from './ValidationAlert'
 import { eventService, type EventData } from '@/services/event.service'
+import { useAuthStore } from '@/store/auth.store'
 
 interface EventFormProps {
   mode: 'create' | 'edit'
@@ -44,6 +45,7 @@ export function EventForm({
   onCancel 
 }: EventFormProps) {
   const { tSync } = useTranslation()
+  const { user } = useAuthStore()
   const router = useRouter()
   
   const [formData, setFormData] = useState<EventData>({
@@ -55,6 +57,7 @@ export function EventForm({
     longitude: undefined,
     start_datetime: '',
     end_datetime: '',
+    created_by: user?.id || '',
     images: [],
     links: []
   })
@@ -168,7 +171,7 @@ export function EventForm({
       
       // onSuccess?.(submittedEventId)
       // router.push(`/events/${submittedEventId}`)
-      router.push(`/events`)
+      window.location.reload()
     } catch (error) {
       console.error('Form submission error:', error)
       // You can add toast notification here

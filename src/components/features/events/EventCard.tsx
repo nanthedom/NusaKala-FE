@@ -10,14 +10,14 @@ interface Event {
   name: string
   types: string[]
   description: string
-  images: string
-  links?: string[]
+  images: string[]
+  links?: string[] | null
   place_name?: string
-  latitude?: number
-  longitude?: number
+  latitude?: number | null
+  longitude?: number | null
   start_datetime: string
   end_datetime: string
-  created_by: string
+  created_by: string | null
   created_at: string
   updated_at: string
 }
@@ -25,6 +25,11 @@ interface Event {
 interface EventCardProps {
   event: Event
   status: 'upcoming' | 'ongoing' | 'past'
+}
+
+// Helper function to get display name for a type
+const getDisplayName = (type: string): string => {
+  return type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
 }
 
 export function EventCard({ event, status }: EventCardProps) {
@@ -96,7 +101,7 @@ export function EventCard({ event, status }: EventCardProps) {
               variant="outline" 
               className="text-xs bg-nusa-cream border-nusa-gold/30 text-nusa-brown hover:bg-nusa-gold/10"
             >
-              {type}
+              {getDisplayName(type)}
             </Badge>
           ))}
         </div>
@@ -105,7 +110,7 @@ export function EventCard({ event, status }: EventCardProps) {
       <CardContent className="space-y-4">
         {/* Event Image Placeholder */}
         <div className="relative aspect-video bg-gradient-to-br from-nusa-cream to-nusa-beige rounded-lg overflow-hidden">
-          <img src={`${event.images}`} alt="" />
+          <img src={`/community-hub.svg`} alt="" />
         </div>
 
         {/* Description */}

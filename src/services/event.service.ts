@@ -12,6 +12,7 @@ export interface EventData {
   end_datetime: string
   images?: string[]
   links?: string[]
+  created_by: string
 }
 
 export interface Event {
