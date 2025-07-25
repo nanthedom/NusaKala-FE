@@ -171,7 +171,7 @@ export default function NusaDiscoveryPage() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div>
             <h1 className="text-4xl font-extrabold text-orange-900 mb-2">
-              Welcome to Nusa, {user.email}! 🇮🇩
+              Welcome to Nusa, {user.email.split('@')[0]}!
             </h1>
             <p className="text-lg text-orange-700">
               Explore Indonesia&#39;s rich cultural heritage and test your knowledge
