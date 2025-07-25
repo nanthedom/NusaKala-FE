@@ -216,7 +216,7 @@ export function InteractiveMap() {
                   <div className="mt-6 pt-4 border-t border-orange-200">
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div>
-                        <div className="font-bold text-orange-900">34</div>
+                        <div className="font-bold text-orange-900">38</div>
                         <div className="text-xs text-orange-700">{tSync('map.totalProvinces', 'Provinces')}</div>
                       </div>
                       <div>
