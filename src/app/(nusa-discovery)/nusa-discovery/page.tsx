@@ -16,15 +16,15 @@ import {
   getAllUserStreaks
 } from '@/lib/trivia'
 import { getTodayTrivia } from '@/data/triviaData'
-import { fetchUpcomingEvents } from '@/lib/events'
+import { useEvents } from '@/hooks/useEvents'
 import { cn } from '@/lib/utils'
 
 const InteractiveMap = dynamic(() => import('@/components/features/nusa-discovery/InteractiveMap'), { ssr: false })
 
 export default function NusaDiscoveryPage() {
   const { user } = useAuth()
+  const { events, loading: eventsLoading } = useEvents()
   const [showTrivia, setShowTrivia] = useState(false)
-  const [upcomingEvents, setUpcomingEvents] = useState<any[]>([])
   const [todayTrivia, setTodayTrivia] = useState(getTodayTrivia())
   const [triviaStatus, setTriviaStatus] = useState<any>(null)
   const [userStreak, setUserStreak] = useState<any>(null)
@@ -56,41 +56,6 @@ export default function NusaDiscoveryPage() {
       setShowTrivia(true)
       markTriviaShown(user.id)
     }
-
-    // Load upcoming events
-    try {
-      const events = await fetchUpcomingEvents()
-      setUpcomingEvents(events)
-    } catch (error) {
-      console.error('Failed to load events:', error)
-      // Set dummy events if fetch fails
-      setUpcomingEvents([
-        {
-          id: '1',
-          title: 'Festival Batik Nusantara',
-          date: '2024-12-15',
-          location: 'Yogyakarta',
-          description: 'Pameran dan workshop batik dari seluruh Indonesia',
-          image: '/placeholder-event1.jpg'
-        },
-        {
-          id: '2', 
-          title: 'Pertunjukan Wayang Kulit',
-          date: '2024-12-18',
-          location: 'Solo',
-          description: 'Pertunjukan wayang kulit klasik dengan dalang terkenal',
-          image: '/placeholder-event2.jpg'
-        },
-        {
-          id: '3',
-          title: 'Lomba Tari Tradisional',
-          date: '2024-12-20',
-          location: 'Bali',
-          description: 'Kompetisi tari tradisional dari berbagai daerah',
-          image: '/placeholder-event3.jpg'
-        }
-      ])
-    }
   }
 
   const handleTriviaAnswer = async (correct: boolean, points: number) => {
@@ -106,7 +71,6 @@ export default function NusaDiscoveryPage() {
     setTriviaStatus(updatedStatus)
   }
 
-
   const handleOpenTrivia = () => {
     setShowTrivia(true)
   }
@@ -114,6 +78,26 @@ export default function NusaDiscoveryPage() {
   const handleRefreshLeaderboard = () => {
     const updatedLeaderboard = getAllUserStreaks()
     setLeaderboardData(updatedLeaderboard)
+  }
+
+  // Get upcoming events from the events data
+  const getUpcomingEvents = () => {
+    if (!events.length) return []
+    
+    const now = new Date()
+    const upcoming = events
+      .filter(event => new Date(event.start_datetime) > now)
+      .sort((a, b) => new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime())
+      .slice(0, 6)
+    
+    return upcoming.map(event => ({
+      id: event.id,
+      title: event.name,
+      date: new Date(event.start_datetime).toLocaleDateString('id-ID'),
+      location: event.place_name,
+      description: event.description,
+      image: event.images[0] || '/placeholder-event.jpg'
+    }))
   }
 
   if (!user) {
@@ -126,6 +110,8 @@ export default function NusaDiscoveryPage() {
       </div>
     )
   }
+
+  const upcomingEvents = getUpcomingEvents()
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -206,11 +192,25 @@ export default function NusaDiscoveryPage() {
           </Button>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {upcomingEvents.slice(0, 6).map(event => (
-            <UpcomingEventCard key={event.id} event={event} />
-          ))}
-        </div>
+        {eventsLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="animate-pulse">
+                <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
+                <div className="space-y-2">
+                  <div className="bg-gray-200 h-4 rounded w-3/4"></div>
+                  <div className="bg-gray-200 h-3 rounded w-1/2"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {upcomingEvents.map(event => (
+              <UpcomingEventCard key={event.id} event={event} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Leaderboard */}

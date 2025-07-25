@@ -6,11 +6,16 @@ import { AuthProvider } from '@/components/common/AuthProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NusaKala - Connecting Indonesian Culture',
+  title: 'NusaKala',
   description: 'Platform untuk connecting culture bagi wisatawan yang berkunjung ke Indonesia',
   keywords: ['indonesia', 'culture', 'travel', 'nusantara', 'budaya'],
   metadataBase: new URL('https://nusakala.vercel.app'),
   authors: [{ name: 'NusaKala Team' }],
+  icons: {
+    icon: '/nusakala-icon.svg',
+    shortcut: '/nusakala-icon.svg',
+    apple: '/nusakala-icon.svg',
+  },
   openGraph: {
     title: 'NusaKala - Connecting Indonesian Culture',
     description: 'Platform untuk connecting culture bagi wisatawan yang berkunjung ke Indonesia',
@@ -18,9 +23,9 @@ export const metadata: Metadata = {
     siteName: 'NusaKala',
     images: [
       {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
+        url: '/nusakala-icon.svg',
+        width: 512,
+        height: 512,
         alt: 'NusaKala - Indonesian Culture Platform',
       },
     ],
@@ -31,7 +36,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NusaKala - Connecting Indonesian Culture',
     description: 'Platform untuk connecting culture bagi wisatawan yang berkunjung ke Indonesia',
-    images: ['/og-image.png'],
+    images: ['/nusakala-icon.svg'],
   },
 }
 
