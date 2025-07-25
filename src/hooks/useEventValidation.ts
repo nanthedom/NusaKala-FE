@@ -1,28 +1,5 @@
-import { useState, useEffect, useCallback } from 'react'
-
-interface ValidationResult {
-  status: 'approved' | 'pending_review' | 'rejected'
-  score: number
-  method: string
-  reason: string
-  saraStatus: string
-  culturalStatus: string
-  qualityStatus: string
-  toxicityLevel: string
-  warnings: string[]
-  suggestions: string[]
-}
-
-interface EventData {
-  name: string
-  description: string
-  types: string[]
-  place_name: string
-  latitude?: number
-  longitude?: number
-  start_datetime: string
-  end_datetime: string
-}
+import { useState, useCallback, useEffect } from 'react'
+import { eventService, type EventData, type ValidationResult } from '@/services/event.service'
 
 interface UseEventValidationProps {
   eventData: EventData
@@ -44,24 +21,12 @@ export function useEventValidation({
       setIsValidating(true)
       setError(null)
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/event-validation/validate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      if (!response.ok) {
-        throw new Error('Validation failed')
-      }
-
-      const result = await response.json()
+      const result = await eventService.validateEvent(data)
       
       if (result.success) {
         setValidationResult(result.data)
       } else {
-        throw new Error(result.error || 'Validation failed')
+        throw new Error('Validation failed')
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Validation failed')
@@ -99,7 +64,6 @@ export function useEventValidation({
     hasSuggestions,
     isRejected,
     isPendingReview,
-    isApproved,
-    validateEvent
+    isApproved
   }
 } 

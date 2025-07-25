@@ -84,7 +84,7 @@ type PredictionResult = {
 } & BatikPatternInfo
 
 export default function NusaCamPage() {
-    const { user } = useAuth(true)
+    const { user } = useAuth()
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [isLoading, setIsLoading] = useState(false)

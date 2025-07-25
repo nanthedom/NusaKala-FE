@@ -22,7 +22,7 @@ import { cn } from '@/lib/utils'
 const InteractiveMap = dynamic(() => import('@/components/features/nusa-discovery/InteractiveMap'), { ssr: false })
 
 export default function NusaDiscoveryPage() {
-  const { user } = useAuth(true)
+  const { user } = useAuth()
   const [showTrivia, setShowTrivia] = useState(false)
   const [upcomingEvents, setUpcomingEvents] = useState<any[]>([])
   const [todayTrivia, setTodayTrivia] = useState(getTodayTrivia())
@@ -134,7 +134,7 @@ export default function NusaDiscoveryPage() {
         <TriviaPopup
           question={todayTrivia}
           userId={user.id}
-          username={user.username}
+          username={user.email}
           onAnswer={handleTriviaAnswer}
           onClose={() => setShowTrivia(false)}
           open={showTrivia}
@@ -146,7 +146,7 @@ export default function NusaDiscoveryPage() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div>
             <h1 className="text-4xl font-extrabold text-orange-900 mb-2">
-              Welcome to Nusa, {user.username}! 🇮🇩
+              Welcome to Nusa, {user.email}! 🇮🇩
             </h1>
             <p className="text-lg text-orange-700">
               Explore Indonesia's rich cultural heritage and test your knowledge

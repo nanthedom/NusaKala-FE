@@ -1,157 +1,143 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-
-interface User {
-  avatar: string
-  id: string
-  username: string
-  email: string
-  role: 'tourist' | 'event_organizer' | 'cultural_creator'
-  profile: {
-    avatar?: string
-    bio?: string
-    interests: string[]
-    streak: number
-    points: number
-  }
-  location?: {
-    current: {
-      lat: number
-      lng: number
-    }
-    visited_provinces: string[]
-  }
-}
+import { authService, type User, type RegisterData, type LoginData } from '@/services/auth.service'
 
 interface AuthState {
   user: User | null
   isAuthenticated: boolean
   isLoading: boolean
+  error: string | null
+  accessToken: string | null
   login: (email: string, password: string) => Promise<void>
-  register: (userData: Partial<User>) => Promise<void>
-  logout: () => void
-  updateProfile: (data: Partial<User['profile']>) => void
-  addVisitedProvince: (province: string) => void
+  register: (data: RegisterData) => Promise<void>
+  logout: () => Promise<void>
+  refreshUser: () => Promise<void>
+  clearError: () => void
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
-      user: {
-        id: '1',
-        username: 'Demo User',
-        email: 'demo@nusākāla.com',
-        role: 'tourist',
-        profile: {
-          interests: ['art_performance', 'traditional_music'],
-          streak: 5,
-          points: 1250,
-        },
-        location: {
-          current: { lat: -6.2088, lng: 106.8456 },
-          visited_provinces: ['jakarta', 'jogja', 'bali']
-        },
-        avatar: ''
-      }, // Demo user for development
-      isAuthenticated: true, // Set to true for demo
+      user: null,
+      isAuthenticated: false,
       isLoading: false,
+      error: null,
+      accessToken: null,
       
       login: async (email: string, password: string) => {
-        set({ isLoading: true })
+        set({ isLoading: true, error: null })
         try {
-          // Mock login - replace with real API call
-          await new Promise(resolve => setTimeout(resolve, 1000))
-          
-          const mockUser: User = {
-            id: '1',
-            username: 'Demo User',
-            email: email,
-            role: 'tourist',
-            profile: {
-              interests: ['art_performance', 'traditional_music'],
-              streak: 5,
-              points: 1250,
-            },
-            location: {
-              current: { lat: -6.2088, lng: 106.8456 },
-              visited_provinces: ['jakarta', 'jogja', 'bali']
-            },
-            avatar: ''
+          const response = await authService.login({ email, password })
+          const newState = { 
+            user: response.user, 
+            isAuthenticated: true, 
+            isLoading: false,
+            error: null,
+            accessToken: response.session.accessToken
           }
+          set(newState)
           
-          set({ user: mockUser, isAuthenticated: true, isLoading: false })
-        } catch (error) {
-          set({ isLoading: false })
-          throw error
-        }
-      },
-      
-      register: async (userData: Partial<User>) => {
-        set({ isLoading: true })
-        try {
-          // Mock registration - replace with real API call
-          await new Promise(resolve => setTimeout(resolve, 1000))
-          
-          const newUser: User = {
-            id: Date.now().toString(),
-            username: userData.username || 'New User',
-            email: userData.email || '',
-            role: userData.role || 'tourist',
-            profile: {
-              interests: [],
-              streak: 0,
-              points: 0,
-              ...userData.profile
-            },
-            avatar: ''
+          // Store both tokens in localStorage
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('accessToken', response.session.accessToken)
+            localStorage.setItem('refreshToken', response.session.refreshToken)
           }
-          
-          set({ user: newUser, isAuthenticated: true, isLoading: false })
         } catch (error) {
-          set({ isLoading: false })
-          throw error
-        }
-      },
-      
-      logout: () => {
-        set({ user: null, isAuthenticated: false })
-      },
-      
-      updateProfile: (data: Partial<User['profile']>) => {
-        const { user } = get()
-        if (user) {
-          set({
-            user: {
-              ...user,
-              profile: { ...user.profile, ...data }
-            }
+          set({ 
+            isLoading: false, 
+            error: error instanceof Error ? error.message : 'Login failed'
           })
+          throw error
         }
       },
       
-      addVisitedProvince: (province: string) => {
-        const { user } = get()
-        if (user && user.location) {
-          const visitedProvinces = user.location.visited_provinces || []
-          if (!visitedProvinces.includes(province)) {
-            set({
-              user: {
-                ...user,
-                location: {
-                  ...user.location,
-                  visited_provinces: [...visitedProvinces, province]
-                }
-              }
-            })
+      register: async (data: RegisterData) => {
+        set({ isLoading: true, error: null })
+        try {
+          const response = await authService.register(data)
+          
+          set({ 
+            user: null, 
+            isAuthenticated: false, 
+            isLoading: false,
+            error: null,
+            accessToken: null
+          })
+        } catch (error) {
+          console.error('Auth store: Registration error:', error)
+          set({ 
+            isLoading: false, 
+            error: error instanceof Error ? error.message : 'Registration failed'
+          })
+          throw error
+        }
+      },
+      
+      logout: async () => {
+        set({ isLoading: true })
+        try {
+          await authService.logout()
+        } catch (error) {
+          // Continue with logout even if server call fails
+        } finally {
+          // Always clear local state and localStorage
+          set({ 
+            user: null, 
+            isAuthenticated: false, 
+            isLoading: false,
+            error: null,
+            accessToken: null
+          })
+          
+          // Clear localStorage
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
           }
         }
+      },
+
+      refreshUser: async () => {
+        // Only refresh if we're already authenticated
+        const currentState = get()
+        if (!currentState.isAuthenticated) {
+          return
+        }
+        
+        try {
+          const response = await authService.getCurrentUser()
+          const newState = {
+            user: response.user, 
+            isAuthenticated: true,
+            error: null
+          }
+          set(newState)
+        } catch (error) {
+          set({ 
+            user: null, 
+            isAuthenticated: false,
+            error: null,
+            accessToken: null
+          })
+          
+          // Clear localStorage on refresh failure
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
+          }
+        }
+      },
+
+      clearError: () => {
+        set({ error: null })
       }
     }),
     {
       name: 'auth-storage',
-      partialize: (state) => ({ 
+      partialize: (state): Partial<AuthState> => ({ 
         user: state.user, 
-        isAuthenticated: state.isAuthenticated 
+        isAuthenticated: state.isAuthenticated,
+        accessToken: state.accessToken
       })
     }
   )

@@ -4,11 +4,21 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Globe } from 'lucide-react'
+import { Menu, X, Globe, User, LogOut } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useAuth } from '@/hooks/useAuth'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 export function LandingHeader() {
   const { tSync } = useTranslation()
+  const { user, isAuthenticated, logout, isLoading } = useAuth()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -21,6 +31,15 @@ export function LandingHeader() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleLogout = async () => {
+    try {
+      await logout()
+      setIsMobileMenuOpen(false)
+    } catch (error) {
+      console.error('Logout error:', error)
+    }
+  }
+
   const navigation = [
     { name: tSync('nav.discovery', 'Discovery'), href: '#discovery' },
     { name: tSync('nav.events', 'Events'), href: '/events' },
@@ -28,6 +47,19 @@ export function LandingHeader() {
     { name: tSync('nav.faq', 'FAQ'), href: '#faq' },
     { name: tSync('nav.contact', 'Contact'), href: '#contact' }
   ]
+
+  const getRoleDisplayName = (role: string) => {
+    switch (role) {
+      case 'tourist':
+        return 'Tourist'
+      case 'organizer':
+        return 'Event Organizer'
+      case 'creator':
+        return 'Cultural Creator'
+      default:
+        return role
+    }
+  }
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${

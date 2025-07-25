@@ -14,19 +14,7 @@ import { Calendar, MapPin, Clock, Loader2 } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useEventValidation } from '@/hooks/useEventValidation'
 import { ValidationAlert } from './ValidationAlert'
-
-interface EventData {
-  name: string
-  description: string
-  types: string[]
-  place_name: string
-  latitude?: number
-  longitude?: number
-  start_datetime: string
-  end_datetime: string
-  images?: string[]
-  links?: string[]
-}
+import { eventService, type EventData } from '@/services/event.service'
 
 interface EventFormProps {
   mode: 'create' | 'edit'
@@ -74,14 +62,12 @@ export function EventForm({
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Initialize form with initial data
   useEffect(() => {
     if (initialData) {
       setFormData(initialData)
     }
   }, [initialData])
 
-  // Real-time validation
   const {
     validationResult,
     isValidating,
@@ -98,8 +84,7 @@ export function EventForm({
 
   const handleInputChange = (field: keyof EventData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    
-    // Clear field error when user starts typing
+
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }))
     }
@@ -143,7 +128,6 @@ export function EventForm({
       newErrors.end_datetime = tSync('form.errors.endDateRequired', 'End date is required')
     }
 
-    // Validate date logic
     if (formData.start_datetime && formData.end_datetime) {
       const startDate = new Date(formData.start_datetime)
       const endDate = new Date(formData.end_datetime)
@@ -169,41 +153,31 @@ export function EventForm({
       return
     }
 
-    // Check if validation is approved
-    if (!isApproved) {
-      return
-    }
-
     setIsSubmitting(true)
 
     try {
-      // TODO: Replace with actual API endpoint
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events${mode === 'edit' ? `/${eventId}` : ''}`, {
-        method: mode === 'edit' ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to submit event')
-      }
-
-      const result: { data: { id: string } } = await response.json()
-      const submittedEventId = result.data.id
+      let result
       
-      onSuccess?.(submittedEventId)
-      router.push(`/events/${submittedEventId}`)
+      if (mode === 'edit' && eventId) {
+        result = await eventService.updateEvent(eventId, formData)
+      } else {
+        result = await eventService.createEvent(formData)
+      }
+      
+      // const submittedEventId = result.data.id
+      
+      // onSuccess?.(submittedEventId)
+      // router.push(`/events/${submittedEventId}`)
+      router.push(`/events`)
     } catch (error) {
       console.error('Form submission error:', error)
+      // You can add toast notification here
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const handleApplySuggestion = (suggestion: string) => {
-    // Simple suggestion application - can be enhanced
     if (suggestion.toLowerCase().includes('description')) {
       setFormData(prev => ({
         ...prev,
@@ -219,8 +193,7 @@ export function EventForm({
     formData.start_datetime && 
     formData.end_datetime
 
-  // Button is disabled if form is invalid OR validation is not approved
-  const isSubmitDisabled = !isFormValid || isSubmitting || !isApproved
+  const isSubmitDisabled = !isFormValid || isSubmitting || isValidating || !isApproved
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -321,55 +294,25 @@ export function EventForm({
 
               <div className="space-y-2">
                 <Label htmlFor="place_name">
-                  {tSync('form.placeName', 'Place Name')} *
+                  {tSync('form.location', 'Location')} *
                 </Label>
                 <Input
                   id="place_name"
                   value={formData.place_name}
                   onChange={(e) => handleInputChange('place_name', e.target.value)}
-                  placeholder={tSync('form.placeNamePlaceholder', 'Enter venue or location name')}
+                  placeholder={tSync('form.locationPlaceholder', 'Enter event location')}
                   className={errors.place_name ? 'border-red-500' : ''}
                 />
                 {errors.place_name && (
                   <p className="text-sm text-red-600">{errors.place_name}</p>
                 )}
               </div>
-
-              {/* TODO: Add Google Maps integration for coordinates */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="latitude">
-                    {tSync('form.latitude', 'Latitude')}
-                  </Label>
-                  <Input
-                    id="latitude"
-                    type="number"
-                    step="any"
-                    value={formData.latitude || ''}
-                    onChange={(e) => handleInputChange('latitude', parseFloat(e.target.value) || undefined)}
-                    placeholder="-6.2088"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="longitude">
-                    {tSync('form.longitude', 'Longitude')}
-                  </Label>
-                  <Input
-                    id="longitude"
-                    type="number"
-                    step="any"
-                    value={formData.longitude || ''}
-                    onChange={(e) => handleInputChange('longitude', parseFloat(e.target.value) || undefined)}
-                    placeholder="106.8456"
-                  />
-                </div>
-              </div>
             </div>
 
-            {/* Date and Time */}
+            {/* Date & Time Information */}
             <div className="space-y-4">
               <h3 className="text-lg font-medium text-nusa-dark-brown">
-                {tSync('form.dateTimeInfo', 'Date & Time')}
+                {tSync('form.dateTimeInfo', 'Date & Time Information')}
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -417,32 +360,32 @@ export function EventForm({
                 <Label htmlFor="links">
                   {tSync('form.externalLinks', 'External Links')}
                 </Label>
-                <Input
+                <Textarea
                   id="links"
-                  value={formData.links?.join(', ') || ''}
-                  onChange={(e) => handleInputChange('links', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
-                  placeholder={tSync('form.linksPlaceholder', 'https://example.com, https://another-link.com')}
+                  value={formData.links?.join('\n') || ''}
+                  onChange={(e) => handleInputChange('links', e.target.value.split('\n').filter(link => link.trim()))}
+                  placeholder={tSync('form.externalLinksPlaceholder', 'Enter external links (one per line)')}
+                  rows={3}
                 />
-                <p className="text-xs text-nusa-brown">
-                  {tSync('form.linksHelp', 'Separate multiple links with commas')}
-                </p>
               </div>
             </div>
 
-            {/* Form Actions */}
-            <div className="flex items-center justify-between pt-6 border-t">
-              <div className="flex items-center gap-4">
-                {isSubmitting && (
-                  <div className="flex items-center gap-2 text-nusa-brown">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="text-sm">
-                      {tSync('form.submitting', 'Submitting...')}
-                    </span>
+            {/* Submit Section */}
+            <div className="space-y-4 pt-6 border-t">
+              <div className="flex items-center justify-between">
+                {isFormValid && isApproved && (
+                  <div className="text-sm text-green-600">
+                    {tSync('form.readyToSubmit', 'Ready to submit!')}
                   </div>
                 )}
-                {!isApproved && isFormValid && (
+                {isFormValid && !isApproved && !isValidating && (
                   <div className="text-sm text-nusa-brown">
                     {tSync('form.waitingValidation', 'Waiting for content validation...')}
+                  </div>
+                )}
+                {isValidating && (
+                  <div className="text-sm text-nusa-brown">
+                    {tSync('form.validating', 'Validating content...')}
                   </div>
                 )}
               </div>

@@ -6,22 +6,24 @@ import { InteractiveMap } from '@/components/features/landing/InteractiveMap'
 import { Features } from '@/components/features/landing/Features'  
 import { FAQ } from '@/components/features/landing/FAQ'
 import { Footer } from '@/components/features/landing/Footer'
+import { ProtectedRoute } from '@/components/common/ProtectedRoute'
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen relative overflow-x-hidden">
-      {/* Main background gradient */}
-      <div className="fixed inset-0 -z-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-orange-50 via-white to-yellow-50"></div>
-      </div>
+    <ProtectedRoute requireAuth={false}>
+      <div className="min-h-screen relative overflow-x-hidden">
+        <div className="fixed inset-0 -z-20">
+          <div className="absolute inset-0 bg-gradient-to-b from-nusa-cream via-white to-nusa-beige"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-nusa-dark-brown-darker/20 via-nusa-brown/5 to-transparent"></div>
+        </div>
 
-      <LandingHeader />
-      
-      <main className="relative">
-        {/* Hero Section */}
-        <section className="relative">
-          <Hero />
-        </section>
+        <LandingHeader />
+        
+        <main className="relative">
+          <section className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-nusa-cream/95 via-nusa-beige/85 to-nusa-cream/95 -z-10"></div>
+            <Hero />
+          </section>
 
         {/* Smooth transition from Hero to Map */}
         <div className="relative h-32 overflow-hidden -mt-1">
@@ -41,10 +43,10 @@ export default function LandingPage() {
           </svg>
         </div>
 
-        {/* Interactive Map Section */}
-        <section id="discovery" className="relative -mt-1">
-          <InteractiveMap />
-        </section>
+          <section id="discovery" className="relative -mt-1">
+            <div className="absolute inset-0 bg-gradient-to-b from-white/98 via-nusa-cream/92 to-white/95 -z-10"></div>
+            <InteractiveMap />
+          </section>
 
         {/* Transition from Map to Features */}
         <div className="relative h-24 overflow-hidden">
@@ -116,5 +118,6 @@ export default function LandingPage() {
       
       <Footer />
     </div>
+    </ProtectedRoute>
   )
 }
