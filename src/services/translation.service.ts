@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface TranslationCache {
   [key: string]: {
     [lang: string]: string

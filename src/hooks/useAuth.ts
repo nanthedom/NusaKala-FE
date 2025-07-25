@@ -1,7 +1,6 @@
 'use client'
 
 import { useAuthStore } from '@/store/auth.store'
-import { useRouter } from 'next/navigation'
 
 export function useAuth() {
   const { 
@@ -16,7 +15,7 @@ export function useAuth() {
     clearError 
   } = useAuthStore()
   
-  const router = useRouter()
+  // const router = useRouter()
 
   const handleLogin = async (email: string, password: string) => {
     try {

@@ -53,38 +53,38 @@ export function InteractiveMap() {
   ]
 
   // Custom map style for Indonesian cultural theme
-  const customMapStyle = {
-    "version": 8,
-    "name": "Indonesian Cultural",
-    "sources": {
-      "mapbox": {
-        "type": "raster",
-        "tiles": ["https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=" + MAPBOX_TOKEN],
-        "tileSize": 512
-      }
-    },
-    "layers": [
-      {
-        "id": "background",
-        "type": "background",
-        "paint": {
-          "background-color": "#f5f1e8"
-        }
-      },
-      {
-        "id": "mapbox-layer",
-        "type": "raster",
-        "source": "mapbox",
-        "paint": {
-          "raster-opacity": 0.8,
-          "raster-hue-rotate": 15,
-          "raster-saturation": 0.3,
-          "raster-brightness-min": 0.2,
-          "raster-brightness-max": 0.9
-        }
-      }
-    ]
-  };
+  // const customMapStyle = {
+  //   "version": 8,
+  //   "name": "Indonesian Cultural",
+  //   "sources": {
+  //     "mapbox": {
+  //       "type": "raster",
+  //       "tiles": ["https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=" + MAPBOX_TOKEN],
+  //       "tileSize": 512
+  //     }
+  //   },
+  //   "layers": [
+  //     {
+  //       "id": "background",
+  //       "type": "background",
+  //       "paint": {
+  //         "background-color": "#f5f1e8"
+  //       }
+  //     },
+  //     {
+  //       "id": "mapbox-layer",
+  //       "type": "raster",
+  //       "source": "mapbox",
+  //       "paint": {
+  //         "raster-opacity": 0.8,
+  //         "raster-hue-rotate": 15,
+  //         "raster-saturation": 0.3,
+  //         "raster-brightness-min": 0.2,
+  //         "raster-brightness-max": 0.9
+  //       }
+  //     }
+  //   ]
+  // };
 
   return (
     <section className="py-20 relative overflow-hidden">

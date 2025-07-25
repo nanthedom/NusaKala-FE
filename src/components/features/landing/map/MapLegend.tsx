@@ -1,7 +1,6 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { MapPin, Calendar, Camera } from 'lucide-react'
 
 export function MapLegend() {
   return (

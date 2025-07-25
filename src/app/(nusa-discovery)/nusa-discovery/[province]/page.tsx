@@ -1,13 +1,14 @@
 import { Suspense } from 'react';
 import { ProvinceDetailContent } from '@/components/features/nusa-discovery/ProvinceDetailContent';
 import { ProvinceDetailLoading } from '@/components/features/nusa-discovery/ProvinceDetailLoading';
-import { ProvinceDetailParams } from '@/types/province.types';
 
-interface ProvinceDetailPageProps {
-  params: ProvinceDetailParams;
-}
+type Props = {
+  params: {
+    province: string;
+  };
+};
 
-export async function generateMetadata({ params }: ProvinceDetailPageProps) {
+export async function generateMetadata({ params }: Props) {
   const provinceName = decodeURIComponent(params.province)
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: ProvinceDetailPageProps) {
   };
 }
 
-export default function ProvinceDetailPage({ params }: ProvinceDetailPageProps) {
+export default function ProvinceDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-yellow-50">
       <Suspense fallback={<ProvinceDetailLoading />}>

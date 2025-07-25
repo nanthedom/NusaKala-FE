@@ -1,11 +1,9 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle, AlertTriangle, Info, X, Shield, Lightbulb, AlertCircle } from 'lucide-react'
+import { CheckCircle, AlertTriangle, Info, X, Lightbulb, AlertCircle } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { type ValidationResult } from '@/services/event.service'
-import { cn } from '@/lib/utils'
 
 interface ValidationAlertProps {
   validationResult: ValidationResult | null

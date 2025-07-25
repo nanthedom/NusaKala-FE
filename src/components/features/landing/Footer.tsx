@@ -1,16 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Youtube, 
-  Mail, 
-  Phone, 
-  MapPin,
   Heart,
   Send
 } from 'lucide-react'
@@ -19,35 +11,35 @@ import { useTranslation } from '@/hooks/useTranslation'
 export function Footer() {
   const { tSync } = useTranslation()
 
-  const productLinks = [
-    { name: tSync('footer.product.discovery', 'Nusa Discovery'), href: '/nusa-discovery' },
-    { name: tSync('footer.product.events', 'Cultural Events'), href: '/events' },
-    { name: tSync('footer.product.native', 'Nusa Native'), href: '/nusa-native' },
-    { name: tSync('footer.product.cam', 'Nusa Cam'), href: '/nusa-cam' },
-    { name: tSync('footer.product.community', 'Community Hub'), href: '/community-hub' },
-    { name: tSync('footer.product.trivia', 'Daily Trivia'), href: '/trivia' }
-  ]
+  // const productLinks = [
+  //   { name: tSync('footer.product.discovery', 'Nusa Discovery'), href: '/nusa-discovery' },
+  //   { name: tSync('footer.product.events', 'Cultural Events'), href: '/events' },
+  //   { name: tSync('footer.product.native', 'Nusa Native'), href: '/nusa-native' },
+  //   { name: tSync('footer.product.cam', 'Nusa Cam'), href: '/nusa-cam' },
+  //   { name: tSync('footer.product.community', 'Community Hub'), href: '/community-hub' },
+  //   { name: tSync('footer.product.trivia', 'Daily Trivia'), href: '/trivia' }
+  // ]
 
-  const supportLinks = [
-    { name: tSync('footer.support.help', 'Help Center'), href: '/help' },
-    { name: tSync('footer.support.contact', 'Contact Us'), href: '/contact' },
-    { name: tSync('footer.support.faq', 'FAQ'), href: '/faq' },
-    { name: tSync('footer.support.guide', 'User Guide'), href: '/guide' }
-  ]
+  // const supportLinks = [
+  //   { name: tSync('footer.support.help', 'Help Center'), href: '/help' },
+  //   { name: tSync('footer.support.contact', 'Contact Us'), href: '/contact' },
+  //   { name: tSync('footer.support.faq', 'FAQ'), href: '/faq' },
+  //   { name: tSync('footer.support.guide', 'User Guide'), href: '/guide' }
+  // ]
 
-  const legalLinks = [
-    { name: tSync('footer.legal.privacy', 'Privacy Policy'), href: '/privacy' },
-    { name: tSync('footer.legal.terms', 'Terms of Service'), href: '/terms' },
-    { name: tSync('footer.legal.cookies', 'Cookie Policy'), href: '/cookies' },
-    { name: tSync('footer.legal.license', 'Licenses'), href: '/licenses' }
-  ]
+  // const legalLinks = [
+  //   { name: tSync('footer.legal.privacy', 'Privacy Policy'), href: '/privacy' },
+  //   { name: tSync('footer.legal.terms', 'Terms of Service'), href: '/terms' },
+  //   { name: tSync('footer.legal.cookies', 'Cookie Policy'), href: '/cookies' },
+  //   { name: tSync('footer.legal.license', 'Licenses'), href: '/licenses' }
+  // ]
 
-  const socialLinks = [
-    { icon: Facebook, href: 'https://facebook.com/nusākāla', label: 'Facebook' },
-    { icon: Twitter, href: 'https://twitter.com/nusākāla', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com/nusākāla', label: 'Instagram' },
-    { icon: Youtube, href: 'https://youtube.com/@nusākāla', label: 'YouTube' }
-  ]
+  // const socialLinks = [
+  //   { icon: Facebook, href: 'https://facebook.com/nusākāla', label: 'Facebook' },
+  //   { icon: Twitter, href: 'https://twitter.com/nusākāla', label: 'Twitter' },
+  //   { icon: Instagram, href: 'https://instagram.com/nusākāla', label: 'Instagram' },
+  //   { icon: Youtube, href: 'https://youtube.com/@nusākāla', label: 'YouTube' }
+  // ]
 
   return (
     <footer className="bg-nusa-dark-brown-darker text-white relative overflow-hidden">

@@ -1,0 +1,132 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/community-hub/[categoryId]",
+      "regex": "^/community\\-hub/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcategoryId": "nxtPcategoryId"
+      },
+      "namedRegex": "^/community\\-hub/(?<nxtPcategoryId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/creator/[creatorId]",
+      "regex": "^/creator/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcreatorId": "nxtPcreatorId"
+      },
+      "namedRegex": "^/creator/(?<nxtPcreatorId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/nusa-discovery/[province]",
+      "regex": "^/nusa\\-discovery/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPprovince": "nxtPprovince"
+      },
+      "namedRegex": "^/nusa\\-discovery/(?<nxtPprovince>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/auth/login",
+      "regex": "^/auth/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/login(?:/)?$"
+    },
+    {
+      "page": "/auth/register",
+      "regex": "^/auth/register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/register(?:/)?$"
+    },
+    {
+      "page": "/community-hub",
+      "regex": "^/community\\-hub(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/community\\-hub(?:/)?$"
+    },
+    {
+      "page": "/events",
+      "regex": "^/events(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/events(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/nusa-cam",
+      "regex": "^/nusa\\-cam(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/nusa\\-cam(?:/)?$"
+    },
+    {
+      "page": "/nusa-discovery",
+      "regex": "^/nusa\\-discovery(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/nusa\\-discovery(?:/)?$"
+    },
+    {
+      "page": "/nusa-journey",
+      "regex": "^/nusa\\-journey(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/nusa\\-journey(?:/)?$"
+    },
+    {
+      "page": "/profile",
+      "regex": "^/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/profile(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

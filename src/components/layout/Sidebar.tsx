@@ -22,12 +22,12 @@ import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 
 interface SidebarProps {
-  isOpen: boolean
-  setIsOpen: (open: boolean) => void
+  readonly isOpen: boolean
+  readonly setIsOpen: (open: boolean) => void
 }
 
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
-  const { user, isAuthenticated, logout } = useAuthStore()
+  const { logout } = useAuthStore()
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {

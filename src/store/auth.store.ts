@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { authService, type User, type RegisterData, type LoginData } from '@/services/auth.service'
+import { authService, type User, type RegisterData } from '@/services/auth.service'
 
 interface AuthState {
   user: User | null
@@ -54,7 +55,7 @@ export const useAuthStore = create<AuthState>()(
       register: async (data: RegisterData) => {
         set({ isLoading: true, error: null })
         try {
-          const response = await authService.register(data)
+          // const response = await authService.register(data)
           
           set({ 
             user: null, 

@@ -15,7 +15,7 @@ interface TranslationState {
 
 export const useTranslationStore = create<TranslationState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       language: 'id',
       supportedLanguages: [],
       isLoading: false,

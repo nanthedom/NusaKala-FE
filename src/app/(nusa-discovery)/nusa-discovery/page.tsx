@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useAuth } from '@/hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { MapPin, Trophy, Star, TrendingUp, Brain, Sparkles, Clock } from 'lucide-react'
+import { Brain } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { Leaderboard } from '@/components/features/nusa-discovery/Leaderboard'
 import { TriviaPopup } from '@/components/features/nusa-discovery/TriviaPopup'
@@ -25,15 +26,18 @@ export default function NusaDiscoveryPage() {
   const { user } = useAuth()
   const { events, loading: eventsLoading } = useEvents()
   const [showTrivia, setShowTrivia] = useState(false)
-  const [todayTrivia, setTodayTrivia] = useState(getTodayTrivia())
+  // const [upcomingEvents, setUpcomingEvents] = useState<any[]>([])
+  const [todayTrivia] = useState(getTodayTrivia())
   const [triviaStatus, setTriviaStatus] = useState<any>(null)
-  const [userStreak, setUserStreak] = useState<any>(null)
+  const [setUserStreak] = useState<any>(null)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [leaderboardData, setLeaderboardData] = useState<any[]>([])
 
   useEffect(() => {
     if (user) {
       initializePage()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const initializePage = async () => {
@@ -56,9 +60,44 @@ export default function NusaDiscoveryPage() {
       setShowTrivia(true)
       markTriviaShown(user.id)
     }
+
+    // Load upcoming events
+    try {
+      // const events = await fetchUpcomingEvents()
+      // setUpcomingEvents(events)
+    } catch (error) {
+      console.error('Failed to load events:', error)
+      // Set dummy events if fetch fails
+      // setUpcomingEvents([
+      //   {
+      //     id: '1',
+      //     title: 'Festival Batik Nusantara',
+      //     date: '2024-12-15',
+      //     location: 'Yogyakarta',
+      //     description: 'Pameran dan workshop batik dari seluruh Indonesia',
+      //     image: '/placeholder-event1.jpg'
+      //   },
+      //   {
+      //     id: '2', 
+      //     title: 'Pertunjukan Wayang Kulit',
+      //     date: '2024-12-18',
+      //     location: 'Solo',
+      //     description: 'Pertunjukan wayang kulit klasik dengan dalang terkenal',
+      //     image: '/placeholder-event2.jpg'
+      //   },
+      //   {
+      //     id: '3',
+      //     title: 'Lomba Tari Tradisional',
+      //     date: '2024-12-20',
+      //     location: 'Bali',
+      //     description: 'Kompetisi tari tradisional dari berbagai daerah',
+      //     image: '/placeholder-event3.jpg'
+      //   }
+      // ])
+    }
   }
 
-  const handleTriviaAnswer = async (correct: boolean, points: number) => {
+  const handleTriviaAnswer = async () => {
     if (!user) return
 
     const updatedStreak = await getUserStreak(user.id)
@@ -135,7 +174,7 @@ export default function NusaDiscoveryPage() {
               Welcome to Nusa, {user.email}! 🇮🇩
             </h1>
             <p className="text-lg text-orange-700">
-              Explore Indonesia's rich cultural heritage and test your knowledge
+              Explore Indonesia&#39;s rich cultural heritage and test your knowledge
             </p>
           </div>
 

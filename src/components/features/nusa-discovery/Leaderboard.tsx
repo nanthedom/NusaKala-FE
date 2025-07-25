@@ -10,7 +10,6 @@ import {
   Crown, 
   Flame, 
   Star, 
-  Target, 
   TrendingUp,
   RefreshCw,
   Award

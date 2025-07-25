@@ -14,12 +14,12 @@ export function middleware(request: NextRequest) {
   // This prevents the infinite redirect loop issue
   
   // Define protected routes that require authentication
-  const protectedRoutes = ['/nusa-discovery']
-  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
+  // const protectedRoutes = ['/nusa-discovery']
+  // const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
   
   // Define public routes that should redirect authenticated users
-  const publicRoutes = ['/']
-  const isPublicRoute = publicRoutes.some(route => pathname === route)
+  // const publicRoutes = ['/']
+  // const isPublicRoute = publicRoutes.some(route => pathname === route)
   
   // Define auth routes that are accessible to all users
   const authRoutes = ['/auth']
