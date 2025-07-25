@@ -57,6 +57,7 @@ export function TriviaPopup({
     }, 1000);
 
     return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, showResult]);
 
   const handleTimeUp = () => {

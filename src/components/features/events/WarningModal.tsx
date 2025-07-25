@@ -58,18 +58,18 @@ export function WarningModal({
     }
   }
 
-  const getStatusColor = () => {
-    switch (status) {
-      case 'approved':
-        return 'text-green-800 bg-green-50 border-green-200'
-      case 'pending_review':
-        return 'text-yellow-800 bg-yellow-50 border-yellow-200'
-      case 'rejected':
-        return 'text-red-800 bg-red-50 border-red-200'
-      default:
-        return 'text-gray-800 bg-gray-50 border-gray-200'
-    }
-  }
+  // const getStatusColor = () => {
+  //   switch (status) {
+  //     case 'approved':
+  //       return 'text-green-800 bg-green-50 border-green-200'
+  //     case 'pending_review':
+  //       return 'text-yellow-800 bg-yellow-50 border-yellow-200'
+  //     case 'rejected':
+  //       return 'text-red-800 bg-red-50 border-red-200'
+  //     default:
+  //       return 'text-gray-800 bg-gray-50 border-gray-200'
+  //   }
+  // }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

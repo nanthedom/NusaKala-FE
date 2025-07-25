@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { MapContainer as LeafletMapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet'
@@ -5,7 +6,6 @@ import { useEffect, useState } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Province } from '@/services/map.service'
-import { MapPin } from 'lucide-react'
 
 // Fix for default markers
 delete (L.Icon.Default.prototype as any)._getIconUrl
@@ -60,7 +60,7 @@ export default function MapContainer({
   selectedProvince, 
   onProvinceClick 
 }: MapContainerProps) {
-  const [geoJsonData, setGeoJsonData] = useState<any>(null)
+  const [geoJsonData] = useState<any>(null)
 
   // Style for GeoJSON layers
   const geoJsonStyle = (feature: any) => {

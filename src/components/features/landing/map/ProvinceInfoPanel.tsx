@@ -3,7 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { MapPin, Users, Calendar, Camera, TrendingUp } from 'lucide-react'
+import { MapPin, Calendar, Camera, TrendingUp } from 'lucide-react'
 import { Province } from '@/services/map.service'
 import { useTranslation } from '@/hooks/useTranslation'
 

@@ -1,6 +1,4 @@
-import { LandingHeader } from '@/components/layout/LandingHeader'
 import { EventsSection } from '@/components/features/events/EventsSection'
-import { Footer } from '@/components/features/landing/Footer'
 
 export default function EventsPage() {
   return (

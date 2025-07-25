@@ -15,8 +15,7 @@ import {
   Shirt, 
   ChefHat, 
   BookOpen, 
-  MapPin,
-  ExternalLink,
+  MapPin,  
   RefreshCw,
   AlertCircle
 } from 'lucide-react';
@@ -63,6 +62,7 @@ export function ProvinceDetailContent({ province }: ProvinceDetailContentProps) 
 
   useEffect(() => {
     loadData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provinceName]);
 
   if (loading) {
@@ -226,7 +226,7 @@ export function ProvinceDetailContent({ province }: ProvinceDetailContentProps) 
       {/* Content */}
       <div className="container mx-auto max-w-7xl px-4 py-16">
         <div className="grid gap-12">
-          {culturalSections.map((section, index) => {
+          {culturalSections.map((section) => {
             const IconComponent = section.icon;
             return (
               <Card key={section.id} className="border-orange-200/50 shadow-xl hover:shadow-2xl transition-shadow duration-300">

@@ -1,0 +1,16 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/auth/login/page": "app/auth/login/page.js",
+  "/auth/register/page": "app/auth/register/page.js",
+  "/page": "app/page.js",
+  "/creator/[creatorId]/page": "app/creator/[creatorId]/page.js",
+  "/(nusa-cam)/nusa-cam/page": "app/(nusa-cam)/nusa-cam/page.js",
+  "/(nusa-discovery)/nusa-discovery/page": "app/(nusa-discovery)/nusa-discovery/page.js",
+  "/community-hub/page": "app/community-hub/page.js",
+  "/(nusa-discovery)/events/page": "app/(nusa-discovery)/events/page.js",
+  "/(nusa-discovery)/nusa-discovery/[province]/page": "app/(nusa-discovery)/nusa-discovery/[province]/page.js",
+  "/(nusa-discovery)/profile/page": "app/(nusa-discovery)/profile/page.js",
+  "/(nusa-journey)/nusa-journey/page": "app/(nusa-journey)/nusa-journey/page.js",
+  "/community-hub/[categoryId]/page": "app/community-hub/[categoryId]/page.js"
+}

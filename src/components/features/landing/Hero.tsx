@@ -1,15 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Play, ArrowRight, Sparkles } from 'lucide-react'
+import {Sparkles } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
-import Link from 'next/link'
 import Image from 'next/image'
 
 export function Hero() {
   const { tSync } = useTranslation()
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
 
   return (
     <section className="relative min-h-screen overflow-hidden">
